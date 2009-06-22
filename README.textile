@@ -1,0 +1,174 @@
+h1. Fork of the original bort base Rails app
+
+Changes noted below.
+
+!http://clients.fudgestudios.com/chester.jpg!
+
+h1. Bort
+
+Bort is a base Rails 2.2.2 application that makes creating new projects easier and faster. Bort is developed and maintained by "Fudge Studios":http://www.fudgestudios.com, "Jim Neath":http://jimneath.org and "Matt Hall":http://matthall.wordpress.com
+
+If you have any suggestions for improvements then feel free to leave a request on "User Voice":http://bort.uservoice.com
+
+h2. Install
+
+* Download and unzip Bort
+* Edit the database.yml and the settings.yml files
+* Changed the default password in the bort migration
+* Edit the REST_AUTH_SITE_KEY in each of the environment files
+* Rake db:migrate
+* Have a brew and celebrate
+
+h2. Plugins Installed
+
+Bort comes with a few commonly used plugins installed and already setup.
+
+h3. RESTful Authentication
+
+RESTful Authentication is already setup. The routes are setup, along with the mailers and observers.
+Forgotten password comes setup, so you don't have to mess around setting it up with every project.
+
+The AASM plugin comes pre-installed. RESTful Authentication is also setup to use user activation.
+
+h3. User Roles
+
+Bort now comes with "Role Requirement":http://code.google.com/p/rolerequirement/ by Tim Harper. A default 
+admin role is predefined along with a default admin user. See the migrations for the admin login details.
+
+h3. Open ID Authentication
+
+Bort, as of 0.3, has Open ID integrated with RESTful Authentication. Rejoice!
+
+h3. Plugins new to this fork
+
+* fckeditor
+* jrails
+* thoughtbot-limerick_rake
+* thoughtbot-mile_marker
+* thoughtbot-squirrel
+
+h2. Gems Installed
+
+h3. Will Paginate
+
+We use will_paginate in pretty much every project we use, so Bort comes with it pre-installed.
+
+h3. Rspec & Rspec-rails
+
+<p>You should be testing your code, so Bort comes with Rspec and Rspec-rails already installed so you're
+ready to roll.</p>
+
+_Note: Shoulda is installed as the preferred test framework. Rspec is used for pre-existing models/controllers (e.g. Users and Roles)_
+
+h3. Hoptoad Exception Notifier
+
+You don't want your applications to crash and burn so Exception Notifier is already installed to let 
+you know when everything goes to shit.
+
+h3. Asset Packager
+
+Packages up your css/javascript so you're not sending 143 files down to the user at the same time. Reduces
+load times and saves you bandwidth.
+
+h3. Gems new to this fork
+
+* capistrano-ext
+* haml
+* mocha
+* newrelic_rpm
+* RedCloth
+* thoughtbot-quietbacktrace
+* thoughtbot-factory_girl
+* thoughtbot-shoulda
+
+h2.  New Relic RPM
+
+<p>By default, the gem is included.<br />
+If you do not have a free account, signup here: "https://rpm.newrelic.com":https://rpm.newrelic.com</p>
+
+After signing-up, replace <code>config/newrelic.yml</code> with the file they provide for your account "here":https://rpm.newrelic.com/browser/agents
+
+h2. Routes
+
+The routes for RESful Auth and the forgot password stuff are already sorted for you.
+
+h2. Settings YAML
+
+There is a settings.yml file that contains site-wide stuff. The site name, url and admin email are all used
+in the RESTful Auth mailers, so you don't need to worry about editing them.
+
+h2. Database YAML
+
+The database.yml defaults to sqlite3 but also contains the settings for MySQL in comments so you can switch
+over easily.
+
+
+h1. Rake Tasks
+
+Rake tasks are contained in the limerick_rake gem.
+    * bootstrap (Provides rake tasks for loading data into the database. These are used for an initial application dataset needed for production.)
+    * capistrano (Standard capistrano deployment tasks)
+
+h1. Testing
+
+The basic test setup uses Test::Unit, Shoulda, factory_girl, and mocha, and includes some standard “shoulda macros” that we’ve used on various projects.
+
+"Factory Girl":http://thoughtbot.com/projects/factory_girl is a fixture replacement library, following the factory pattern. Place your factories in test/factories.rb. The fixture directory has been removed, as fixtures are not used.
+
+"Shoulda":http://thoughtbot.com/projects/shoulda is a pragmatic testing framework for TDD and BDD built on top of Test::Unit. A number of additional testing macros are provided in test/shoulda_macros:
+
+h1. Deployment
+
+<p>Bort comes ready to rock capistrano. The recipe that is setup is based on using git and passenger. It's ready
+to go with multistage deployments. It deploys to the production config by default, so if you don't need it
+you can ignore it. Just update config/deploy/production.rb with your deployment settings.</p>
+
+<p>More info on capistrano-ext/multistage deployments can be found here: http://weblog.jamisbuck.org/2007/7/23/capistrano-multistage</p>
+
+<p>Deployment is done using capistrano, and deploys to a Passenger (aka mod_rails), running under Apache.<br />
+Rake tasks are provided for managing git branches which the different environments pull from for deploy.</p>
+
+To push the git master to git staging branch run:
+<pre><code>
+rake git:push:staging
+</pre></code>
+  
+To push the git staging branch to production branch run:
+<pre><code>
+rake git:push:production
+</pre></code>
+  
+Setup your deployment environment by running:
+<pre><code>
+cap ENVIRONMENT deploy:setup
+</pre></code>
+  
+You’ll be prompted for the environment’s database password
+Deploy to the desired environment by running:
+<pre><code>
+cap ENVIRONMENT deploy
+</pre></code>
+
+The default environment for deploy is staging, to deploy to staging, just run:
+<pre><code>
+cap deploy
+</pre></code>
+
+h2. Uses the Database for Sessions
+
+Bort is setup to use the database to store sessions by default. 
+
+
+h2. Misc 
+
+* password and password_confirmation are set up to be filtered
+* there is a default application layout file
+* a page title helper has been added
+* index.html is already deleted
+* rails.png is already deleted
+* a few changes have been made to the default views
+* a default css file with blank selectors for common rails elements
+
+h2. Credits
+
+Bort put together by people at "Fudge":http://www.fudgestudios.com/ 
