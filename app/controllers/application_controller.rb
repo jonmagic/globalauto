@@ -5,17 +5,27 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
-  
-  before_filter :http_basic_authenticate
-  
-  protected
-    
-    def http_basic_authenticate
-      authenticate_or_request_with_http_basic do |username, password|
-        username == APP_CONFIG[:username] && password == APP_CONFIG[:password]
-      end
+  def login_required
+    if session[:user]
+      return true
     end
-  
+    flash[:warning]='Please login to continue'
+    session[:return_to]=request.request_uri
+    redirect_to :controller => "user", :action => "login"
+    return false 
+  end
+
+  def current_user
+    session[:user]
+  end
+
+  def redirect_to_stored
+    if return_to = session[:return_to]
+      session[:return_to]=nil
+      redirect_to return_to
+    else
+      redirect_to :controller=>'user', :action=>'welcome'
+    end
+  end
+
 end

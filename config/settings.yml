@@ -1,10 +1,8 @@
 development: &non_production_settings
-  username: admin
-  password: password
+  site_name: Global Auto
   
 test:
   <<: *non_production_settings
   
 production:
-  username: admin
-  password: password
+  site_name: Global Auto

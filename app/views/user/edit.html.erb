@@ -1,0 +1,25 @@
+<% form_tag :action => "change_password" do %>
+	<fieldset>
+	  <div class="row">
+      <%= label_tag 'user_firstname', 'Firstname' %>
+			<%= text_field "user", "firstname", :size => 20 %>
+		</div>
+		<div class="row">
+      <%= label_tag 'user_lastname', 'Lastname' %>
+			<%= text_field "user", "lastname", :size => 20 %>
+		</div>
+    <div class="row">
+      <%= label_tag 'user_login', 'Username' %>
+			<%= text_field "user", "login", :size => 20 %>
+		</div>
+    <div class="row">
+			<%= label_tag 'password', 'Password' %>
+			<%= password_field "user", "password", :size => 20 %>
+		</div>
+		<div class="row">
+			<%= label_tag 'password_confirmation', 'Password (again)' %>
+			<%= password_field "user", "password_confirmation", :size => 20 %>
+		</div>
+	</fieldset>
+	<%= submit_tag "Signup" %>
+<% end %>
