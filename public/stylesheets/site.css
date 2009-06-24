@@ -1,0 +1,79 @@
+body {
+  width:950px;
+  margin:auto;
+  font-size:.9em;
+  color:#555;
+  text-align:left;
+}
+
+
+h3 {color:#444;font-size:2em;}
+a {color:#404040;}
+a:hover {color:#404040;text-decoration:none;}
+p {margin-top:0px;margin-bottom:1em;}
+
+/********* header *********/
+div#header h1 {position:relative;margin-top:3px;color:#444;font-weight:bold;z-index:1;}
+div#header h1 span {font-weight:bold;color:#222;}
+div#header h2 {position:relative;color:#444;z-index:1;}
+div#header_bg {
+  position:absolute;
+  top:7.3em;
+  left:0;
+  height:130px;
+  width:100%;
+  background:#979697 url(../images/header_bg.png) repeat-x;
+  z-index:0;
+}
+div#header h2 span {font-weight:bold;color:#222;}
+
+/******** content position ********/
+/*div#knowmc {position:absolute;top:10px;}*/
+
+/******** Testimonials *********/
+div#testimonials p {font-size:.8em;margin-top:1em;padding:1em;border-right:1px solid #ccc;height:5em;}
+div#testimonial1 p {padding-left:0em;}
+div#testimonial3 p {border-right:1px solid #fff;padding-right:0em;}
+
+/******** Description **********/
+div#description p {margin-right:2em;}
+
+/******** Signup Form **********/
+div#signup {background-color:#a3b2e3;padding:1em;width:420px;}
+div#signup h3 {color:#000;margin-bottom:.5em;text-align:left;}
+div#signup tr {margin:0;padding:0;}
+div#signup {text-align:right;}
+
+/********** Video ************/
+div#video {background-color:#000;padding:24px 0;}
+
+/********** Features ***********/
+div#features ul {list-style:none;padding:0;margin:0;}
+div#features ul li {clear:both;padding:0 0 1em;}
+div#features ul li img {float:left;margin:0 1em 1em 0;border:3px solid #979697;}
+div#features ul li img:hover {border:3px solid #404040;}
+
+/********** behindlogic **********/
+div#behindlogic ul {list-style:none;margin:0;padding:0;}
+div#behindlogic ul li {clear:both;font-size:.9em;height:6em;}
+div#behindlogic ul li img {float:left;margin-right:1em;padding:3px;background-color:#a3b2e3;}
+
+/********** News ************/
+div#news h3 {padding-left:1em;}
+div#news div#rss-widget {padding-left:2em;border-left:1px solid #ccc;}
+#rss-widget .gf-author {display:none;}
+#rss-widget .gf-spacer {display:none;}
+#rss-widget div.gf-relativePublishedDate {display:none;}
+div.gf-snippet {font-size:.9em;}
+
+/********** Footer **********/
+div#footer {text-align:center;}
+
+/****** Extras ********/
+.align-center {text-align:center;}
+.align-right {text-align:right;}
+.hide {display:none;}
+div.spacer1 {margin-top:1em;}
+div.spacer2 {margin-top:2em;}
+div.spacer3 {margin-top:3em;}
+div.spacer4 {margin-top:4em;}
