@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  ro_number: 1
+  description: Fix the tail light
+  technician_id: 1
+  completed: 2009-06-24 09:08:58
+  clients_lastname: Hoyt
+
+two:
+  ro_number: 455
+  description: Replace the radiator
+  technician_id: 1
+  completed: 2009-06-24 09:08:58
+  clients_lastname: Koch
