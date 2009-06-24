@@ -1,0 +1,28 @@
+<table class="itu">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Color</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% for technician in @technicians %>
+    <tr>
+      <td><a href="/technicians/<%= technician.id %>/edit"><%= h technician.name %></a></td>
+      <td><a href="/technicians/<%= technician.id %>/edit"><%= h technician.code %></a></td>
+      <td><a href="/technicians/<%= technician.id %>/edit"><%= h technician.color %></a></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  $(document).ready(function() {
+    // make sidebar item appear selected
+    $("#sidebar li a.technicians").parent().addClass("selected");
+    // add new goggle type button to footer
+    $("#footer div.col2").append("<a href='/technicians/new'>New Technician</a>");
+  });
+</script>

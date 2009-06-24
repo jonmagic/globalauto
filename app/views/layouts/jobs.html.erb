@@ -1,9 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title><%= "#{controller.controller_name}: #{controller.action_name}" %></title>
-    <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
+    <title><%= APP_CONFIG[:site_name] %></title>
+    <%= stylesheet_link_tag 'blueprint/screen', 'thickbox', 'jobs', :media => 'screen' %>
     <%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
+    <%= javascript_include_tag "jquery-1.3.2.min", "thickbox", "jquery.corner", "jobs" %>
     <%= "<!--[if IE]>#{stylesheet_link_tag 'blueprint/ie', :media => 'screen'}<![endif]-->" %>
   </head>
   <body>

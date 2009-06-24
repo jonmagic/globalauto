@@ -1,0 +1,21 @@
+<% if params[:technician_id] %>
+  <ul class="jobs">
+    <% @jobs.each do |job| %>
+      <li>
+        <a href="/jobs/<%= job.id %>" class="thickbox">
+          <span class="ro_number" style="">RO# <%= job.ro_number %></span>
+          <span class="description"><%= job.description[0..130]+'...' %></span>
+          <span class="status">Started</span>
+        </a>
+      </li>
+    <% end %>
+    <li>
+      <a href="/technicians/<%= @technician.id %>/jobs/new?KeepThis=true&TB_iframe=true" class="thickbox center big_text" style="height:3em">New Job</a>
+    </li>
+  </ul>
+<% else %>
+  <% @technicians.each do |technician| %>
+    <a href="/technicians/<%= technician.id %>/redirect?KeepThis=true&TB_iframe=true" class="technician thickbox" color="<%= technician.color %>"><%= technician.name %></a>
+  <% end %>
+<% end %>
+

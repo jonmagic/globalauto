@@ -23,6 +23,7 @@ body#login fieldset {border:1px solid #444;padding:1em 1.5em;width:300px;}
 #footer {position:fixed;bottom:0;left:0;z-index:10;width:100%;height:29px;}
 #sidebar {position:fixed;top:50px;left:0;width:240px;overflow-y:scroll;} /* we use javascript to set the height */
 #center {position:absolute;top:50px;left:240px;z-index:0;} /* we use javascript to set the width */
+#center > div {padding:1em 1.5em;}
 
 /* Header styles */
 #header {background:url("../images/header_bg.png") repeat-x;border-bottom:1px solid #404040}

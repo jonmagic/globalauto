@@ -1,6 +1,5 @@
 class Technician < ActiveRecord::Base
   has_many :jobs
-  has_many :timeclocks
   
   validates_presence_of :name, :code, :color
   validates_length_of :code, :within => 3..20
@@ -9,4 +8,7 @@ class Technician < ActiveRecord::Base
     find(:all, :conditions => {:active => true})
   end
   
+  def has_jobs?
+    self.jobs.length != 0
+  end
 end

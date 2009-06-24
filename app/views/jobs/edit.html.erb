@@ -1,0 +1,6 @@
+<h1>Editing Job</h1>
+
+<% form_for(@job) do |form| %>
+  <%= render :partial => 'form', :locals => {:form => form} %>
+  <p><%= form.submit 'Update' %></p>
+<% end %>

@@ -1,0 +1,16 @@
+<div>
+  <h2>RO# <%= @job.ro_number %></h2>
+  <p>Lastname: <%= @job.clients_lastname %></p>
+  <p><b>Description:</b> <br /><%= @job.description %></p>
+  
+  <% form_for @timer do |f| %>
+    <%= f.hidden_field :job_id %>
+    <%= f.submit 'Save', :class => 'hide' %>
+  <% end %>
+  
+  <% if @timer.new_record? %>
+    <a href="javascript:void(0)" id="start_time">Start</a>
+  <% else %>
+    <a href="javascript:void(0)" id="end_time">Stop</a>
+  <% end %>
+</div>

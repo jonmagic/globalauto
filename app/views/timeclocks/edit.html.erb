@@ -1,0 +1,12 @@
+<h1>Editing Timeclock</h1>
+
+<% form_for(@timeclock) do |form| %>
+  <%= render :partial => 'form', :locals => {:form => form} %>
+  <p><%= form.submit 'Update' %></p>
+<% end %>
+
+<p>
+  <%= link_to 'Show', @timeclock %>
+  |
+  <%= link_to 'Back', timeclocks_path %>
+</p>

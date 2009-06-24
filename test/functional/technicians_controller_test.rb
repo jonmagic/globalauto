@@ -51,6 +51,15 @@ class TechniciansControllerTest < ActionController::TestCase
     should_render_template :edit
   end
   
-  
+  # context "on POST to :update" do
+  #   setup do
+  #     login_as(:bob)
+  #     Factory.create(:greg, :id => 1)
+  #     get :update, :id => 1
+  #   end
+  # 
+  #   should_respond_with :success
+  #   should_render_template :edit
+  # end
   
 end

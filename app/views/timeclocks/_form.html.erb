@@ -1,0 +1,12 @@
+<%= form.error_messages %>
+
+<dl>
+  <dt><%= form.label :job_id %></dt>
+  <dd><%= form.text_field :job_id %></dd>
+  <dt><%= form.label :technician_id %></dt>
+  <dd><%= form.text_field :technician_id %></dd>
+  <dt><%= form.label :start_time %></dt>
+  <dd><%= form.datetime_select :start_time %></dd>
+  <dt><%= form.label :end_time %></dt>
+  <dd><%= form.datetime_select :end_time %></dd>
+</dl>

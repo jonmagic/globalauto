@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<title><%= APP_CONFIG[:site_name] %></title>
+		<meta http-equiv="content-type" content="text/xhtml; charset=utf-8" />
+		<meta http-equiv="imagetoolbar" content="no" />
+		<meta name="distribution" content="all" />
+		<meta name="robots" content="all" />	
+		<meta name="resource-type" content="document" />
+		<meta name="MSSmartTagsPreventParsing" content="true" />
+		<%= javascript_include_tag "jquery", "jquery-ui" %>
+    <%= javascript_include_tag "common" %>
+		<%= stylesheet_link_tag "blueprint/screen", "common", "jquery-theme", "settings" %>
+	</head>
+	<body>
+    <div id="header">
+      <h1 class="hide"><%= APP_CONFIG[:site_name] %></h1>
+      <ul>
+        <li><a href="/reports">Reports</a></li>
+        <li><a href="/settings">Settings</a></li>
+      </ul>
+      <div class="flash"><%= flash_messages %></div>
+    </div>
+    
+    <div id="sidebar">
+      <h2>Settings</h2>
+      <ul id="configuration" class="itu">
+        <li><a href="/technicians" class="technicians">Technicians</a></li>
+      </ul>
+    </div>
+    
+    <div id="center" class="container">
+      <%= yield %>
+    </div>
+    
+    <div id="footer">
+      <div class="col1"></div>
+      <div class="col2"></div>
+      <div class="col3"></div>
+    </div>
+	</body>
+</html>

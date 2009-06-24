@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(:version => 20090624130858) do
 
   create_table "timeclocks", :force => true do |t|
     t.integer  "job_id"
-    t.integer  "technician_id"
     t.datetime "start_time"
     t.datetime "end_time"
     t.datetime "created_at"

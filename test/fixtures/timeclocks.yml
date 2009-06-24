@@ -2,12 +2,10 @@
 
 one:
   job_id: 1
-  technician_id: 1
   start_time: 2009-06-24 09:05:57
   end_time: 2009-06-24 09:05:57
 
 two:
   job_id: 1
-  technician_id: 1
   start_time: 2009-06-24 09:05:57
   end_time: 2009-06-24 09:05:57
