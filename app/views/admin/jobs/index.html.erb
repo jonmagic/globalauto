@@ -10,7 +10,7 @@
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.clients_lastname %></a></td>
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.description[0...80] + "..." %></a></td>
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.technician.name %></a></td>
-        <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= recorded_time_helper(job) %></a></td>
+        <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= time_helper(job.recorded_time) %></a></td>
       </tr>
     <% end %>
   </tbody>

@@ -29,7 +29,7 @@ class Timer < ActiveRecord::Base
   end
   
   def self.convert_time(time)
-    time > 0 ? positive = true : positive = false
+    time < 0 ? positive = false : positive = true
     time = time.abs
     time = time.to_i
     hours = (time/60)

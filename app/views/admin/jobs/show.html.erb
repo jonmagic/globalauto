@@ -4,10 +4,10 @@
   <h3>Lastname: <%= @job.clients_lastname %></h3>
     <h4>Description:</h4>
     <p><%= @job.description %></p>
-    <h4>Total Time Logged: <%= recorded_time_helper(@job) %></h4>
-    <h4>Flat-rate Time: <%= flatrate_time_helper(@job) %></h4>
-    <h4>Extra Time: <%= extra_time_helper(@job) %></h4>
-    <h4>Difference: <%= difference_time_helper(@job) %></h4>
+    <h4>Total Time Logged: <%= time_helper(@job.recorded_time) %></h4>
+    <h4>Flat-rate Time: <%= time_helper(@job.flatrate_time) %></h4>
+    <h4>Extra Time: <%= time_helper(@job.extra_time) %></h4>
+    <h4>Difference: <%= time_helper(@job.difference) %></h4>
 </div>
 
 <script>

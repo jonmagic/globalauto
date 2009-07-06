@@ -9,7 +9,7 @@
           <td><%= job.id %></td>
           <td><%= job.ro_number %></td>
           <td><%= job.technician.name %></td>
-          <td><%= recorded_time_helper(job) %></td>
+          <td><%= time_helper(job.recorded_time) %></td>
         </tr>
       <% end %>
     </tbody>

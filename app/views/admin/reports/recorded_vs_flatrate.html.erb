@@ -20,6 +20,7 @@
       <th>Flat-rate</th>
       <th>Extra</th>
       <th>Difference</th>
+      <th>RunningDiff</th>
     </tr>
   </thead>
   <tbody>
@@ -28,10 +29,11 @@
         <td><a href="javascript:void(0)"><%= job.id %></a></td>
         <td><a href="javascript:void(0)"><%= job.ro_number %></a></td>
         <td><a href="javascript:void(0)"><%= job.technician.name %></a></td>
-        <td><a href="javascript:void(0)"><%= recorded_time_helper(job) %></a></td>
-        <td><a href="javascript:void(0)"><%= flatrate_time_helper(job) %></a></td>
-        <td><a href="javascript:void(0)"><%= extra_time_helper(job) %></a></td>
-        <td><a href="javascript:void(0)"><%= difference_time_helper(job) %></a></td>
+        <td><a href="javascript:void(0)"><%= time_helper(job.recorded_time) %></a></td>
+        <td><a href="javascript:void(0)"><%= time_helper(job.flatrate_time) %></a></td>
+        <td><a href="javascript:void(0)"><%= time_helper(job.extra_time) %></a></td>
+        <td><a href="javascript:void(0)"><%= time_helper(job.difference) %></a></td>
+        <td><a href="javascript:void(0)"><%= running_difference(job.difference) %></a></td>
       </tr>
     <% end %>
   </tbody>

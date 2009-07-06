@@ -12,6 +12,7 @@ class Admin::ReportsController < ApplicationController
     end_date = params[:end_date].to_s + " 23:59:59"
     
     @jobs = Job.all(:conditions => {:completed => start_date..end_date})
+    @runningdiff = []
     
     @start_date = params[:start_date]
     @end_date = params[:end_date]

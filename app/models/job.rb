@@ -64,6 +64,18 @@ class Job < ActiveRecord::Base
     return (time/60).round
   end
   
+  def recorded_time
+    time = 0
+    self.timers.each do |timer|
+      time += timer.interval
+    end
+    return time.to_f/60
+  end
+  
+  def difference
+    self.recorded_time.to_f - (self.flatrate_time.to_f + self.extra_time.to_f)
+  end
+  
   def self.totals
     past = Date.today - 100.years
     future = Date.today + 100.years

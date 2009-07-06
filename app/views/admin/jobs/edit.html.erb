@@ -5,12 +5,12 @@
   <% form_for [:admin, @job] do |f| %>
     <h4>Description:</h4>
     <p><%= @job.description %></p>
-    <h4>Total Time Logged: <%= recorded_time_helper(@job) %></h4>
+    <h4>Total Time Logged: <%= time_helper(@job.recorded_time) %></h4>
     <h4>Flat-rate Time</h4>
-    <p class="flatrate_time">Hours: <input class="hours" type="text" value="<%= flatrate_time_hours_helper(@job) %>" /> Minutes: <input class="minutes" type="text" value="<%= flatrate_time_minutes_helper(@job) %>" /></p>
+    <p class="flatrate_time">Hours: <input class="hours" type="text" value="<%= time_hours_helper(@job.flatrate_time) %>" /> Minutes: <input class="minutes" type="text" value="<%= time_minutes_helper(@job.flatrate_time) %>" /></p>
     <%= f.hidden_field :flatrate_time %>
     <h4>Extra Time</h4>
-    <p class="extra_time">Hours: <input class="hours" type="text" value="<%= extra_time_hours_helper(@job) %>" /> Minutes: <input class="minutes" type="text" value="<%= extra_time_minutes_helper(@job) %>" /></p>
+    <p class="extra_time">Hours: <input class="hours" type="text" value="<%= time_hours_helper(@job.extra_time) %>" /> Minutes: <input class="minutes" type="text" value="<%= time_minutes_helper(@job.extra_time) %>" /></p>
     <%= f.hidden_field :extra_time %>
     <%= f.submit 'Update', :class => 'hide' %>
   <% end %>
