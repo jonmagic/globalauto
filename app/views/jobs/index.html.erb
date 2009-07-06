@@ -1,3 +1,4 @@
+
 <% if params[:technician_id] %>
   <a href="/" id="return_home">Close Jobs</a>
   <ul class="jobs">
@@ -14,13 +15,18 @@
     </li>
   </ul>
 <% else %>
-  <div id="job"></div>
-  <div id="jobs"></div>
-  <% counter = 0 %>
-  <% @technicians.each do |technician| %>
-    <% counter == 3 ? counter == 0 : counter += 1 %>
-    <div class="span-8<%= counter == 3 ? ' last' : '' %>">
-      <a href="<%= has_jobs_link_helper(technician) %>" alt="" class="technician<%= has_jobs(technician) %>" color="<%= technician.color %>" font_color="<%= technician.font_color %>"><%= technician.name %></a>
-    </div>
-  <% end %>
+  <div class="span-24">
+    <div id="job"></div>
+    <div id="jobs"></div>
+    <% counter = 0 %>
+    <% @technicians.each do |technician| %>
+      <% counter == 3 ? counter = 1 : counter += 1 %>
+      <div class="span-8<%= counter == 3 ? ' last' : '' %>">
+        <a href="<%= has_jobs_link_helper(technician) %>" alt="" class="technician<%= has_jobs(technician) %>" color="<%= technician.color %>" font_color="<%= technician.font_color %>"><%= technician.name %></a>
+      </div>
+    <% end %>
+  </div>
+  <div id="timers"></div>
 <% end %>
+
+

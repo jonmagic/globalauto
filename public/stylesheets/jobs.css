@@ -28,3 +28,6 @@ div#job a#return_home {position:absolute;top:1em;right:1em;color:#333;font-size:
 div#job form {margin-top:4em;}
 div#job form p.description {position:absolute;top:4.5em;left:50%;}
 
+table.jobs {width:100%;font-size:1.5em;margin-top:10px;-moz-border-radius:10px;-webkit-border-radius:10px;background-color:#f1f1f1;}
+table.jobs thead {}
+table.jobs th, table.jobs td {text-align:center;}

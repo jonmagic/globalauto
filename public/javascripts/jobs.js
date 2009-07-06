@@ -28,6 +28,24 @@ $().ready(function() {
   $("div#job").hide();
 
   technicians();
+  $('#timers').fadeOut("fast").load('/timers', function(){
+    $('table.jobs tr').each(function(){
+      var bg_color = $(this).attr('bg_color');
+      var font_color = $(this).attr('font_color');
+      var tds = $(this).children();
+      tds.css({backgroundColor: bg_color, color: font_color});
+    });
+  }).fadeIn("fast");
+  var refreshTimers = setInterval(function(){
+    $('#timers').fadeOut("fast").load('/timers', function(){
+      $('table.jobs tr').each(function(){
+        var bg_color = $(this).attr('bg_color');
+        var font_color = $(this).attr('font_color');
+        var tds = $(this).children();
+        tds.css({backgroundColor: bg_color, color: font_color});
+      });
+    }).fadeIn("fast");
+  }, 60000);
   
 });
 

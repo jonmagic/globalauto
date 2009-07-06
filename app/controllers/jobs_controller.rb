@@ -20,6 +20,11 @@ class JobsController < ApplicationController
       end
     end
   end
+  
+  def timers
+    @jobs = Job.active_jobs
+  end
+  
 
   def show
     @job = Job.find(params[:id])

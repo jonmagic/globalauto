@@ -8,10 +8,10 @@
     <h4>Total Time Logged: <%= recorded_time_helper(@job) %></h4>
     <h4>Flat-rate Time</h4>
     <p class="flatrate_time">Hours: <input class="hours" type="text" value="<%= flatrate_time_hours_helper(@job) %>" /> Minutes: <input class="minutes" type="text" value="<%= flatrate_time_minutes_helper(@job) %>" /></p>
-    <%= f.text_field :flatrate_time %>
+    <%= f.hidden_field :flatrate_time %>
     <h4>Extra Time</h4>
     <p class="extra_time">Hours: <input class="hours" type="text" value="<%= extra_time_hours_helper(@job) %>" /> Minutes: <input class="minutes" type="text" value="<%= extra_time_minutes_helper(@job) %>" /></p>
-    <%= f.text_field :extra_time %>
+    <%= f.hidden_field :extra_time %>
     <%= f.submit 'Update', :class => 'hide' %>
   <% end %>
 </div>

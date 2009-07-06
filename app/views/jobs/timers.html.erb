@@ -1,0 +1,17 @@
+<div class="span-24">
+  <table class="jobs">
+    <thead>
+      <tr><th class="first">Id</th><th>RO #</th><th>Technician</th><th>Recorded Time</th></tr>
+    </thead>
+    <tbody>
+      <% @jobs.each do |job|  %>
+        <tr bg_color="<%= job.technician.color %>" font_color="<%= job.technician.font_color %>">
+          <td><%= job.id %></td>
+          <td><%= job.ro_number %></td>
+          <td><%= job.technician.name %></td>
+          <td><%= recorded_time_helper(job) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
