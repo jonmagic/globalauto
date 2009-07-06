@@ -4,6 +4,7 @@ class CreateTechnicians < ActiveRecord::Migration
       t.string :name
       t.string :code
       t.string :color
+      t.string :font_color
       t.boolean :active
       
       t.timestamps

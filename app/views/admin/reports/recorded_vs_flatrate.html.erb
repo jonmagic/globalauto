@@ -1,0 +1,46 @@
+<div id="content_search">
+  <% form_tag "/admin/reports/recorded_vs_flatrate", :method => "get" do %>
+    <p>
+      <label>Start Date:</label>
+      <%= text_field_tag :start_date, @start_date %>
+      <label>End Date:</label>
+      <%= text_field_tag :end_date, @end_date %>
+      <%= submit_tag "Run report" %>
+    </p>
+  <% end %>
+</div>
+
+<table class="itu" >
+  <thead>
+    <tr>
+      <th class="first">Id</th>
+      <th>RO #</th>
+      <th>Technician</th>
+      <th>Recorded</th>
+      <th>Flat-rate</th>
+      <th>Extra</th>
+      <th>Difference</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @jobs.each do |job|  %>
+      <tr class="job" alt="<%= job.description %>" status="<%= status_helper(job) %>">
+        <td><a href="javascript:void(0)"><%= job.id %></a></td>
+        <td><a href="javascript:void(0)"><%= job.ro_number %></a></td>
+        <td><a href="javascript:void(0)"><%= job.technician.name %></a></td>
+        <td><a href="javascript:void(0)"><%= recorded_time_helper(job) %></a></td>
+        <td><a href="javascript:void(0)"><%= flatrate_time_helper(job) %></a></td>
+        <td><a href="javascript:void(0)"><%= extra_time_helper(job) %></a></td>
+        <td><a href="javascript:void(0)"><%= difference_time_helper(job) %></a></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  $(document).ready(function() {
+    // create datepicker widget
+    $("#start_date").datepicker();
+    $("#end_date").datepicker();
+	});
+</script>

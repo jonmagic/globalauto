@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-  before_filter :login_required, :only=>['welcome', 'change_password', 'hidden']
+  before_filter :login_required, :only=>['change_password', 'hidden']
 
     def signup
       @user = User.new(params[:user])
@@ -7,7 +7,7 @@ class UserController < ApplicationController
         if @user.save
           session[:user] = User.authenticate(@user.login, @user.password)
           flash[:message] = "Signup successful"
-          redirect_to :action => "welcome"          
+          redirect_to "/"         
         else
           flash[:warning] = "Signup unsuccessful"
         end
@@ -48,9 +48,7 @@ class UserController < ApplicationController
         end
       end
     end
-
-    def welcome
-    end
+    
     def hidden
     end
 

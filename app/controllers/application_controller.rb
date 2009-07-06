@@ -3,7 +3,6 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   def login_required
     if session[:user]
@@ -11,7 +10,7 @@ class ApplicationController < ActionController::Base
     end
     flash[:warning]='Please login to continue'
     session[:return_to]=request.request_uri
-    redirect_to :controller => "user", :action => "login"
+    redirect_to "/user/login"
     return false 
   end
 
@@ -24,7 +23,7 @@ class ApplicationController < ActionController::Base
       session[:return_to]=nil
       redirect_to return_to
     else
-      redirect_to :controller=>'user', :action=>'welcome'
+      redirect_to "/"
     end
   end
 

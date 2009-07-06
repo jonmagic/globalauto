@@ -1,2 +1,0 @@
-class TimeclocksController < ApplicationController
-end

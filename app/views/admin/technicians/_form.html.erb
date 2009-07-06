@@ -1,0 +1,59 @@
+<%= form.error_messages %>
+
+<dl>
+  <dt><%= form.label :name %></dt>
+  <dd><%= form.text_field :name %></dd>
+  <dt><%= form.label :code %></dt>
+  <dd><%= form.text_field :code %></dd>
+  <dt><%= form.label :color %></dt>
+  <dd>
+    <div id="colorSelector">
+      <div style='background-color:<%= @technician.new_record? ? "#ffffff" : @technician.color %>'></div>
+      <%= form.hidden_field :color, :value => @technician.new_record? ? "#0000ff" : @technician.color %>
+    </div>
+  </dd>
+  <dt><%= form.label :font_color %></dt>
+  <dd>
+    <div id="font_colorSelector">
+      <div style='background-color:<%= @technician.new_record? ? "#000000" : @technician.font_color %>'></div>
+      <%= form.hidden_field :font_color, :value => @technician.new_record? ? "#000000" : @technician.font_color %>
+    </div>
+  </dd>
+  <dt><%= form.label :active %></dt>
+  <dd><%= form.check_box :active %></dd>
+</dl>
+
+<script>
+  $().ready(function() {
+    $('#colorSelector').ColorPicker({
+    	color: '<%= @technician.new_record? ? "#ffffff" : @technician.color %>',
+    	onShow: function (colpkr) {
+    		$(colpkr).fadeIn(500);
+    		return false;
+    	},
+    	onHide: function (colpkr) {
+    		$(colpkr).fadeOut(500);
+    		return false;
+    	},
+    	onChange: function (hsb, hex, rgb) {
+    		$('#colorSelector div').css('backgroundColor', '#' + hex);
+    		$('input#technician_color').val('#' + hex);
+    	}
+    });
+    $('#font_colorSelector').ColorPicker({
+    	color: '<%= @technician.new_record? ? "#000000" : @technician.font_color %>',
+    	onShow: function (colpkr) {
+    		$(colpkr).fadeIn(500);
+    		return false;
+    	},
+    	onHide: function (colpkr) {
+    		$(colpkr).fadeOut(500);
+    		return false;
+    	},
+    	onChange: function (hsb, hex, rgb) {
+    		$('#font_colorSelector div').css('backgroundColor', '#' + hex);
+    		$('input#technician_font_color').val('#' + hex);
+    	}
+    });
+  });
+</script>

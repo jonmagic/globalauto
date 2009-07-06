@@ -19,7 +19,7 @@ class UserControllerTest < ActionController::TestCase
     assert session[:user] != nil
     assert_equal @bob, session[:user]
     assert_response :redirect
-    assert_redirected_to :action=>'welcome'
+    assert_redirected_to "/"
   end
 
   def test_signup
@@ -27,7 +27,7 @@ class UserControllerTest < ActionController::TestCase
     post :signup, :user => { :login => "newbob", :password => "newpassword", :password_confirmation => "newpassword", :firstname => "New", :lastname => "Bob" }
     assert_response :redirect
     assert_not_nil session[:user]
-    assert_redirected_to :action=>'welcome'
+    assert_redirected_to "/"
   end
   
   def test_bad_signup

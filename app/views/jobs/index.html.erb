@@ -1,21 +1,26 @@
 <% if params[:technician_id] %>
+  <a href="/" id="return_home">Close Jobs</a>
   <ul class="jobs">
     <% @jobs.each do |job| %>
       <li>
-        <a href="/jobs/<%= job.id %>" class="thickbox">
-          <span class="ro_number" style="">RO# <%= job.ro_number %></span>
+        <a href="javascript:void(0)" alt="/technicians/<%= @technician.id %>/jobs/<%= job.id %>" class="job">
+          <span class="ro_number" style="">Repair Order # <%= job.ro_number %></span>
           <span class="description"><%= job.description[0..130]+'...' %></span>
-          <span class="status">Started</span>
         </a>
       </li>
     <% end %>
     <li>
-      <a href="/technicians/<%= @technician.id %>/jobs/new?KeepThis=true&TB_iframe=true" class="thickbox center big_text" style="height:3em">New Job</a>
+      <a href="javascript:void(0)" alt="/technicians/<%= @technician.id %>/jobs/new" class="new_job">New Job</a>
     </li>
   </ul>
 <% else %>
+  <div id="job"></div>
+  <div id="jobs"></div>
+  <% counter = 0 %>
   <% @technicians.each do |technician| %>
-    <a href="/technicians/<%= technician.id %>/redirect?KeepThis=true&TB_iframe=true" class="technician thickbox" color="<%= technician.color %>"><%= technician.name %></a>
+    <% counter == 3 ? counter == 0 : counter += 1 %>
+    <div class="span-8<%= counter == 3 ? ' last' : '' %>">
+      <a href="<%= has_jobs_link_helper(technician) %>" alt="" class="technician<%= has_jobs(technician) %>" color="<%= technician.color %>" font_color="<%= technician.font_color %>"><%= technician.name %></a>
+    </div>
   <% end %>
 <% end %>
-

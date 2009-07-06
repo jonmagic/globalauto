@@ -6,6 +6,8 @@ class CreateJobs < ActiveRecord::Migration
       t.integer :technician_id
       t.datetime :completed
       t.string :clients_lastname
+      t.string :flatrate_time
+      t.string :extra_time
 
       t.timestamps
     end

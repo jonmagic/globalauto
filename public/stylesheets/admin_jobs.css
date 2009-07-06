@@ -1,0 +1,9 @@
+div#sidebar .open {background:url("/images/icons/tag_green.png") no-repeat 0px 1px;}
+div#sidebar .completed {background:url("/images/icons/tag_red.png") no-repeat 0px 1px;}
+div#sidebar .recorded {background:url("/images/icons/tag_purple.png") no-repeat 0px 1px;}
+
+div#job h2 {font-size:2em;margin:0;color:#222;}
+
+#job_description {height:40px;}
+input.hours {width:20px;}
+input.minutes {width:20px;}

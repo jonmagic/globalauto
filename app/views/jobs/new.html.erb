@@ -1,4 +1,7 @@
-<% form_for(@job) do |form| %>
+<h2 id="new_job">New Job</h2>
+<% form_for @job do |form| %>
   <%= render :partial => 'form', :locals => {:form => form} %>
-  <p><%= form.submit 'Create' %></p>
+  <%= form.submit 'Save', :class => 'submit' %>
 <% end %>
+
+<a href="javascript:void(0)" id="create_job">Start</a>

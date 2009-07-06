@@ -1,0 +1,17 @@
+<table class="itu" >
+  <thead>
+    <tr><th class="first">Id</th><th>RO #</th><th>Lastname</th><th>Description</th><th>Technician</th><th>Recorded Time</th></tr>
+  </thead>
+  <tbody>
+    <% @jobs.each do |job|  %>
+      <tr class="job" alt="<%= job.description %>" status="<%= status_helper(job) %>">
+        <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.id %></a></td>
+        <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.ro_number %></a></td>
+        <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.clients_lastname %></a></td>
+        <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.description[0...80] + "..." %></a></td>
+        <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.technician.name %></a></td>
+        <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= recorded_time_helper(job) %></a></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

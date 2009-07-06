@@ -1,0 +1,18 @@
+<div id="job" job_id="<%= @job.id %>">
+  <h2>Job# <%= @job.id %>, Technician: <%= @job.technician.name %></h2>
+  <h3>RO# <%= @job.ro_number %></h3>
+  <h3>Lastname: <%= @job.clients_lastname %></h3>
+    <h4>Description:</h4>
+    <p><%= @job.description %></p>
+    <h4>Total Time Logged: <%= recorded_time_helper(@job) %></h4>
+    <h4>Flat-rate Time: <%= flatrate_time_helper(@job) %></h4>
+    <h4>Extra Time: <%= extra_time_helper(@job) %></h4>
+    <h4>Difference: <%= difference_time_helper(@job) %></h4>
+</div>
+
+<script>
+  $().ready(function() {
+    // add edit button
+    $("#footer div.col2").append("<a href='/admin/jobs/<%= @job.id %>/edit' class='update_job'>Edit</a>");
+  });
+</script>

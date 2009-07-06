@@ -1,0 +1,64 @@
+<div id="job" job_id="<%= @job.id %>">
+  <h2>Job# <%= @job.id %>, Technician: <%= @job.technician.name %></h2>
+  <h3>RO# <%= @job.ro_number %></h3>
+  <h3>Lastname: <%= @job.clients_lastname %></h3>
+  <% form_for [:admin, @job] do |f| %>
+    <h4>Description:</h4>
+    <p><%= @job.description %></p>
+    <h4>Total Time Logged: <%= recorded_time_helper(@job) %></h4>
+    <h4>Flat-rate Time</h4>
+    <p class="flatrate_time">Hours: <input class="hours" type="text" value="<%= flatrate_time_hours_helper(@job) %>" /> Minutes: <input class="minutes" type="text" value="<%= flatrate_time_minutes_helper(@job) %>" /></p>
+    <%= f.text_field :flatrate_time %>
+    <h4>Extra Time</h4>
+    <p class="extra_time">Hours: <input class="hours" type="text" value="<%= extra_time_hours_helper(@job) %>" /> Minutes: <input class="minutes" type="text" value="<%= extra_time_minutes_helper(@job) %>" /></p>
+    <%= f.text_field :extra_time %>
+    <%= f.submit 'Update', :class => 'hide' %>
+  <% end %>
+</div>
+
+<script>
+  $().ready(function() {
+    // focus on the right field
+    $('.flatrate_time input.hours').focus();
+    // bind to the change events of my hours and minutes fields
+    $('.flatrate_time input.hours').bind('change', function(){
+      $(".flatrate_time").timecalc('input#job_flatrate_time');
+    });
+    $('.flatrate_time input.minutes').bind('change', function(){
+      $(".flatrate_time").timecalc('input#job_flatrate_time');
+    });
+    $('.extra_time input.hours').bind('change', function(){
+      $(".extra_time").timecalc('input#job_extra_time');
+    });
+    $('.extra_time input.minutes').bind('change', function(){
+      $(".extra_time").timecalc('input#job_extra_time');
+    });
+    // add my save button
+    $("#footer div.col2").append("<a href='#' class='update_job'>Save</a>");
+    $('a.update_job').bind('click', function(){
+      intercept_form();
+    });
+    $("#job form").bind('submit', function(){
+      intercept_form();
+    });
+  });
+  
+  function intercept_form(){
+    event.preventDefault();
+    $(".flatrate_time").timecalc('input#job_flatrate_time');
+    $(".extra_time").timecalc('input#job_extra_time');
+    $(".flatrate_time").remove()
+    $(".extra_time").remove()
+    var job_id = $("#job").attr('job_id');
+    var flatrate_time = $("input#job_flatrate_time").val();
+    var extra_time = $("input#job_extra_time").val();
+    $.ajax({
+      url: '/admin/jobs/'+job_id,
+      type: "POST",
+      data: '_method=put&job[flatrate_time]='+flatrate_time+'&job[extra_time]='+extra_time,
+      success: function(){
+        window.location.href="/admin/jobs/next_job"
+      }
+    });
+  };
+</script>

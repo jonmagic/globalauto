@@ -1,22 +1,13 @@
 class JobsController < ApplicationController
-  layout 'jobs', :except => ['my_jobs']
-  
-  def redirect
-    @technician = Technician.find(params[:technician_id])
-    if @technician.has_jobs?
-      redirect_to "/technicians/#{@technician.id}/jobs"
-    else
-      redirect_to "/technicians/#{@technician.id}/jobs/new"
-    end
-  end
+  layout 'jobs'
   
   def index
     if params[:technician_id]
       @technician = Technician.find(params[:technician_id])
-      @jobs = Job.scoped_by_technician_id(@technician.id)
+      @jobs = @technician.open_jobs
 
       respond_to do |format|
-        format.html { render :layout => 'my_jobs' }
+        format.html { render :layout => false }
         format.xml  { render :xml => @jobs }
       end      
     else
@@ -32,14 +23,14 @@ class JobsController < ApplicationController
 
   def show
     @job = Job.find(params[:id])
-    if Timeclock.find(:first, :conditions => {:job_id => @job.id, :end_time => nil})
-      @timer = Timeclock.find(:first, :conditions => {:job_id => @job.id, :end_time => nil})
+    if Timer.find(:first, :conditions => {:job_id => @job.id, :end_time => nil})
+      @timer = Timer.find(:first, :conditions => {:job_id => @job.id, :end_time => nil})
     else
-      @timer = Timeclock.new
+      @timer = Timer.new
     end
 
     respond_to do |format|
-      format.html { render :layout => 'my_jobs' }
+      format.html { render :layout => false }
       format.xml  { render :xml => @job }
     end
   end
@@ -49,13 +40,9 @@ class JobsController < ApplicationController
     @job = Job.new
 
     respond_to do |format|
-      format.html { render :layout => 'my_jobs' }
+      format.html { render :layout => false }
       format.xml  { render :xml => @job }
     end
-  end
-
-  def edit
-    @job = Job.find(params[:id])
   end
 
   def create
@@ -64,10 +51,10 @@ class JobsController < ApplicationController
     respond_to do |format|
       if @job.save
         flash[:notice] = 'Job was successfully created.'
-        format.html { redirect_to(@job) }
+        format.html { redirect_to "/" }
         format.xml  { render :xml => @job, :status => :created, :location => @job }
       else
-        format.html { render :action => "new" }
+        format.html { redirect_to "/" }
         format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
       end
     end
@@ -75,14 +62,13 @@ class JobsController < ApplicationController
 
   def update
     @job = Job.find(params[:id])
+    @job.completed = Time.now
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
-        flash[:notice] = 'Job was successfully updated.'
-        format.html { redirect_to(@job) }
+        format.html { redirect_to "/" }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
         format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
       end
     end

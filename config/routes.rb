@@ -1,18 +1,25 @@
 ActionController::Routing::Routes.draw do |map|
+
+  map.find_next_completed_record "/admin/jobs/next_job", :controller => 'admin/jobs', :action => 'find_next_completed_job'
+  map.admin "/admin", :controller => 'admin/settings', :action => 'index'
+  map.report_recorded_vs_flatrate "/admin/reports/recorded_vs_flatrate", :controller => 'admin/reports', :action => 'recorded_vs_flatrate'
+
   map.resources :jobs
   map.resources :technicians do |technician|
     technician.resources :jobs
   end
   map.resources :jobs do |job|
-    job.resources :timeclocks
+    job.resources :timers
   end
-  map.resources :timeclocks
-  map.resources :technicians
-  map.resources :settings
-  map.resources :sample
+  map.resources :timers
   
-  map.redirect '/technicians/:technician_id/redirect', :controller => 'jobs', :action => 'redirect'
-  
+  map.namespace(:admin) do |admin|
+    admin.resources :technicians
+    admin.resources :settings
+    admin.resources :reports
+    admin.resources :jobs
+  end
+    
   map.root :controller => 'jobs', :action => 'index'
   
   map.connect ':controller/:action/:id'

@@ -3,7 +3,7 @@ require 'test_helper'
 class TechnicianTest < ActiveSupport::TestCase
   should_have_many :jobs
   
-  should_validate_presence_of :name, :code, :color
+  should_validate_presence_of :name, :color
   should_ensure_length_at_least :code, 3
   
   context "active_techs" do

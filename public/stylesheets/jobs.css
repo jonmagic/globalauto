@@ -1,1 +1,30 @@
-a.technician {float:left;display:block;margin:10px;padding:1em 1.5em;width:180px;text-align:center;background-color:#ccc;font-size:3em;font-weight:bold;color:#000;text-decoration:none;}
+div.container {min-height:700px;}
+textarea {height:4em;}
+p {font-size:1.3em;}
+.hide {visibility:hidden;}
+
+a.technician {display:block;padding:1em 0;margin-bottom:10px;text-align:center;background-color:#eee;font-size:3em;font-weight:bold;color:#000;text-decoration:none;-moz-border-radius:15px;-webkit-border-radius:15px;}
+
+div#jobs {text-align:right;margin-bottom:2em;background-color:#333;padding:0em 2em 2em;-moz-border-radius:15px;-webkit-border-radius:15px;}
+div#jobs a#return_home {color:#fff;font-size:1.5em;text-decoration:none;}
+ul.jobs {list-style:none;padding:0;margin:0;text-align:left;}
+ul.jobs li {margin-bottom:1px;}
+ul.jobs li a.job {position:relative;min-height:8em;display:block;padding:1em 1.5em;background-color:#eee;color:#000;text-decoration:none;}
+ul.jobs li a:hover {background-color:#010170;color:#fff;}
+ul.jobs li a.job span.ro_number {position:absolute;top:0px;left:8px;font-size:3em;}
+ul.jobs li a.job span.description {position:absolute;top:3em;font-size:1.5em;}
+ul.jobs li a.job span.status {position:absolute;top:3px;right:8px;font-size:1.5em;}
+a.new_job {display:block;padding:1em 1.5em;background-color:#eee;color:#000;text-decoration:none;text-align:center;font-size:2em;height:50px;}
+
+div#job {position:relative;height:14em;margin-bottom:2em;padding:2em;text-align:left;border:2px solid #ccc;-moz-border-radius:15px;-webkit-border-radius:15px;}
+div#job table {font-size:1.4em;}
+div#job input {height:1em;font-size:.9em;}
+div#job textarea {height:3em;font-size:.9em;}
+div#job h2 {position:absolute;top:0;left:0;display:block;width:900px;padding:.5em 1em;margin:0;font-weight:bold;background-color:#ccc;color:#333;-moz-border-radius-topleft:13px;-moz-border-radius-topright:13px;-webkit-border-top-left-radius:13px;-webkit-border-top-right-radius:13px;}
+div#job a#start_timer, div#job a#create_job {position:absolute;top:4em;right:1em;padding:1em 0;width:200px;text-align:center;font-size:1.5em;-moz-border-radius:5px;-webkit-border-radius: 5px;background-color:green;color:#fff;text-decoration:none;}
+div#job a#stop_timer {position:absolute;top:4em;right:1em;padding:1em 0;width:200px;text-align:center;font-size:1.5em;-moz-border-radius:5px;-webkit-border-radius: 5px;background-color:red;color:#fff;text-decoration:none;}
+div#job a#complete_job {position:absolute;top:8em;right:1em;padding:1em 0;width:200px;text-align:center;font-size:1.5em;-moz-border-radius:5px;-webkit-border-radius: 5px;background-color:#eee;color:#333;text-decoration:none;}
+div#job a#return_home {position:absolute;top:1em;right:1em;color:#333;font-size:1.5em;text-decoration:none;}
+div#job form {margin-top:4em;}
+div#job form p.description {position:absolute;top:4.5em;left:50%;}
+

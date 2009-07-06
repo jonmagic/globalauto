@@ -1,1 +1,16 @@
-div.sidebar ul#configuration li a.technicians {background:url("/images/icons/group_edit.png") no-repeat 0px 1px;}
+div#sidebar .technicians {background:url("/images/icons/group.png") no-repeat 0px 1px;}
+
+#colorSelector, #font_colorSelector {
+	position: relative;
+	width: 36px;
+	height: 36px;
+	background: url("/images/colorpicker/select.png");
+}
+#colorSelector div, #font_colorSelector div {
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 30px;
+	height: 30px;
+	background: url("/images/colorpicker/select.png") center;
+}

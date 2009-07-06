@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(:version => 20090624130858) do
     t.integer  "technician_id"
     t.datetime "completed"
     t.string   "clients_lastname"
+    t.string   "flatrate_time"
+    t.string   "extra_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -25,17 +27,16 @@ ActiveRecord::Schema.define(:version => 20090624130858) do
     t.string   "name"
     t.string   "code"
     t.string   "color"
+    t.string   "font_color"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "timeclocks", :force => true do |t|
+  create_table "timers", :force => true do |t|
     t.integer  "job_id"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

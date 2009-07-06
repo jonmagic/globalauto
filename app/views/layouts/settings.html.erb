@@ -9,16 +9,16 @@
 		<meta name="robots" content="all" />	
 		<meta name="resource-type" content="document" />
 		<meta name="MSSmartTagsPreventParsing" content="true" />
-		<%= javascript_include_tag "jquery", "jquery-ui" %>
-    <%= javascript_include_tag "common" %>
-		<%= stylesheet_link_tag "blueprint/screen", "common", "jquery-theme", "settings" %>
+		<%= stylesheet_link_tag "blueprint/screen", "common", "jquery-theme", "colorpicker", "settings" %>
+		<%= javascript_include_tag "jquery", "jquery-ui", "colorpicker", "common" %>
 	</head>
 	<body>
     <div id="header">
       <h1 class="hide"><%= APP_CONFIG[:site_name] %></h1>
       <ul>
-        <li><a href="/reports">Reports</a></li>
-        <li><a href="/settings">Settings</a></li>
+        <li><a href="/admin/jobs/?status=completed">Jobs</a></li>
+        <li><a href="/admin/reports">Reports</a></li>
+        <li><a href="/admin/settings">Settings</a></li>
       </ul>
       <div class="flash"><%= flash_messages %></div>
     </div>
@@ -37,7 +37,7 @@
     <div id="footer">
       <div class="col1"></div>
       <div class="col2"></div>
-      <div class="col3"></div>
+      <div class="col3"><a href="/user/logout">Logout</a></div>
     </div>
 	</body>
 </html>

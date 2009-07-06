@@ -1,7 +1,14 @@
 <%= form.error_messages %>
-
-<p><%= form.label :ro_number %>: <%= form.text_field :ro_number %></p>
-<p><%= form.label :clients_lastname %>: <%= form.text_field :clients_lastname %></p>
-<p><%= form.label :description %>: <br /><%= form.text_area :description %></p>
+<table>
+  <tr>
+    <td><b>Repair Order #</b></td><td><%= form.text_field :ro_number %></td>
+  </tr>
+  <tr>
+    <td><b>Clients Lastname:</b></td><td><%= form.text_field :clients_lastname %></td>
+  </tr>
+  <tr>
+    <td><b>Description:</b></td><td><%= form.text_area :description %></td>
+  </tr>
+</table>
 
 <%= form.hidden_field :technician_id, :value => @technician.id %>
