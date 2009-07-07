@@ -87,7 +87,7 @@ class Job < ActiveRecord::Base
     return totals
   end
   
-  def self.limit(status)
+  def self.limit(status, technician_id="all")
     past = Date.today - 100.years
     future = Date.today + 100.years
     if status == nil || status == "completed"

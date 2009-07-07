@@ -5,6 +5,13 @@
       <%= text_field_tag :start_date, @start_date %>
       <label>End Date:</label>
       <%= text_field_tag :end_date, @end_date %>
+      <label>Technician</label>
+      <select id="technician_id" name="technician_id">
+        <option value="all">All</option>
+        <% Technician.all().each do |tech| %>
+          <option value="<%= tech.id %>"<%= tech.id == @selected.to_i ? ' selected="selected"' : '' %>><%= tech.name %></option>
+        <% end %>
+      </select>  
       <%= submit_tag "Run report" %>
     </p>
   <% end %>
