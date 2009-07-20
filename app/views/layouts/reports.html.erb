@@ -10,6 +10,8 @@
 		<meta name="resource-type" content="document" />
 		<meta name="MSSmartTagsPreventParsing" content="true" />
 		<%= stylesheet_link_tag "blueprint/screen", "common", "jquery-theme", "settings" %>
+    <%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
+    <%= "<!--[if IE]>#{stylesheet_link_tag 'blueprint/ie', :media => 'screen'}<![endif]-->" %>
 		<%= javascript_include_tag "jquery", "jquery-ui", "common" %>
 	</head>
 	<body>

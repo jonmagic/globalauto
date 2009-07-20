@@ -27,3 +27,11 @@ blockquote {margin:1.5em;padding:1em;font-style:italic;font-size:.9em;}
 .hide {display:none;}
 a:link, a:visited {background:transparent;font-weight:700;text-decoration:underline;}
 a:link:after, a:visited:after {content:" (" attr(href) ") ";font-size:90%;}
+
+/* my custom print css */
+#header {display:none;}
+#sidebar {display:none;}
+#footer {display:none;}
+table {width:100%;}
+table thead tr th {border-bottom:2px solid #333;}
+table tbody tr td {border-bottom:1px solid #333;text-align:center;}

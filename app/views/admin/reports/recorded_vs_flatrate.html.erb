@@ -33,14 +33,14 @@
   <tbody>
     <% @jobs.each do |job|  %>
       <tr class="job" alt="<%= job.description %>" status="<%= status_helper(job) %>">
-        <td><a href="javascript:void(0)"><%= job.id %></a></td>
-        <td><a href="javascript:void(0)"><%= job.ro_number %></a></td>
-        <td><a href="javascript:void(0)"><%= job.technician.name %></a></td>
-        <td><a href="javascript:void(0)"><%= time_helper(job.recorded_time) %></a></td>
-        <td><a href="javascript:void(0)"><%= time_helper(job.flatrate_time) %></a></td>
-        <td><a href="javascript:void(0)"><%= time_helper(job.extra_time) %></a></td>
-        <td><a href="javascript:void(0)"><%= time_helper(job.difference) %></a></td>
-        <td><a href="javascript:void(0)"><%= running_difference(job.difference) %></a></td>
+        <td class="fake_link_padding"><%= job.id %></td>
+        <td class="fake_link_padding"><%= job.ro_number %></td>
+        <td class="fake_link_padding"><%= job.technician.name %></td>
+        <td class="fake_link_padding"><%= time_helper(job.recorded_time) %></td>
+        <td class="fake_link_padding"><%= time_helper(job.flatrate_time) %></td>
+        <td class="fake_link_padding"><%= time_helper(job.extra_time) %></td>
+        <td class="fake_link_padding"><%= time_helper(job.difference) %></td>
+        <td class="fake_link_padding"><%= running_difference(job.difference) %></td>
       </tr>
     <% end %>
   </tbody>

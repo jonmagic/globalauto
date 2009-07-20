@@ -86,6 +86,7 @@ table.itu tr.even td {background-color:#f1f5fa;}
 table.itu tr td a {padding:1px 5px;color:#404040;display:block;}
 table.itu tr.table-row-selected td {color:#fff;background-color:#3d80df;border-right:1px solid #346dbe}
 table.itu tr.table-row-selected td a {color:#fff;}
+table.itu tr td.fake_link_padding {padding:1px 5px;}
 table.m {margin-top:1em;}
 table.m th {padding:2px 6px;background-color:#fff;}
 table.m th.first {text-align:right;font-weight:bold;color:#bbb;padding-right:3px;}
