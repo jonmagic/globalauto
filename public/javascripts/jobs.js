@@ -46,7 +46,6 @@ $().ready(function() {
       });
     }).fadeIn("fast");
   }, 60000);
-  
 });
 
 // make link javascript friendly
@@ -92,6 +91,8 @@ function job(){
 function pull_job(link){
   $("div#job").slideUp('fast');
   $("div#job").load(link.attr('alt'), function(){
+    $("div#complete_dialog").hide();
+    $("div#new_job_time").hide();
     // pausecomp(1000);
     $("div#job").slideDown("slow", function(){
       $("input#job_ro_number").focus();
@@ -117,6 +118,7 @@ function bind_submit(){
     $("input.submit").click();
   });
 };
+// bind to edit so that we can edit this job
 function bind_edit(job_id){
   $("a.edit_job").bind("click", function(){
     $("div#job").slideUp("fast").load('/jobs/'+job_id+'/edit').slideDown('slow');
@@ -160,14 +162,50 @@ function timer(job_id, link){
 };
 // complete
 function bind_complete(job_id){
+  var time_spent = "";
   $("a#complete_job").bind("click", function(){
-    $.ajax({
-      type: "POST",
-      url: "/jobs/"+job_id,
-      data: "_method=put&completed=true",
-      success: function(){
-        window.location.reload();
-      }
+    // hide everything
+    $("div#job p").slideUp("fast");
+    $("a.edit_job").hide();
+    $("div#job a#start_timer").hide();
+    $("div#job a#stop_timer").hide();
+    $("div#job a#complete_job").hide();
+    // unhide the dialog we need
+    $("div#complete_dialog").slideDown("fast");
+    // bind our yes button
+    $("div#complete_dialog a.yes").bind("click", function(){
+      // hide the previous dialog
+      $("div#complete_dialog").slideUp("fast");
+      // show the next dialog
+      $("div#new_job_time").slideDown("fast");
+      // focus on the right field
+      $("input.hours").focus();
+      // start my time calc
+      $("div#new_job_time input.hours").bind("change", function(){
+        $("p.time_spent").timecalc('input#time_spent');
+      });
+      $("div#new_job_time input.minutes").bind("change", function(){
+        $("p.time_spent").timecalc('input#time_spent');
+      });
+      $("div#new_job_time a#save_job").bind("click", function(){
+        $("p.time_spent").timecalc('input#time_spent');
+        time_spent = "&time_spent="+$("input#time_spent").val();
+        post_job_form(job_id, time_spent);
+      });
     });
+    $("div#complete_dialog a.no").bind("click", function(){
+      post_job_form(job_id, time_spent);
+    });
+  });
+};
+// post completed form data
+function post_job_form(job_id, time_spent){
+  $.ajax({
+    type: "POST",
+    url: "/jobs/"+job_id,
+    data: "_method=put&completed=true"+time_spent,
+    success: function(){
+      window.location.reload();
+    }
   });
 };

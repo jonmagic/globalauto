@@ -72,6 +72,11 @@ class JobsController < ApplicationController
   def update
     @job = Job.find(params[:id])
     if params[:completed]
+      if params[:time_spent]
+        @job.recorded_time = params[:time_spent]
+      else
+        @job.recorded_time = @job.recorded_time_helper
+      end
       @job.completed = Time.now
       @job.save
     end

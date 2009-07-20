@@ -16,18 +16,20 @@ ul.jobs li a.job span.description {position:absolute;top:3em;font-size:1.5em;}
 ul.jobs li a.job span.status {position:absolute;top:3px;right:8px;font-size:1.5em;}
 a.new_job {display:block;padding:1em 1.5em;background-color:#eee;color:#000;text-decoration:none;text-align:center;font-size:2em;height:50px;}
 
-div#job {position:relative;height:14em;margin-bottom:2em;padding:2em;text-align:left;border:2px solid #ccc;-moz-border-radius:15px;-webkit-border-radius:15px;}
+div#job {position:relative;height:12em;margin-bottom:2em;padding:6em 2em 2em 2em;text-align:left;border:2px solid #ccc;-moz-border-radius:15px;-webkit-border-radius:15px;}
 div#job p {margin:0 0 .5em 0;padding:0;}
 div#job table {font-size:1.4em;}
 div#job input {height:1em;font-size:.9em;}
 div#job textarea {height:3em;font-size:.9em;}
 div#job h2 {position:absolute;top:0;left:0;display:block;width:890px;padding:.5em 1em;margin:0;font-weight:bold;background-color:#ccc;color:#333;-moz-border-radius-topleft:13px;-moz-border-radius-topright:13px;-webkit-border-top-left-radius:13px;-webkit-border-top-right-radius:13px;}
-div#job a#start_timer, div#job a#create_job {position:absolute;top:4em;right:1em;padding:1em 0;width:200px;text-align:center;font-size:1.5em;-moz-border-radius:5px;-webkit-border-radius: 5px;background-color:green;color:#fff;}
+div#job a#start_timer, div#job a#create_job, div#job a#save_job, div#complete_dialog a.yes {position:absolute;top:4em;right:1em;padding:1em 0;width:200px;text-align:center;font-size:1.5em;-moz-border-radius:5px;-webkit-border-radius: 5px;background-color:green;color:#fff;}
 div#job a#stop_timer {position:absolute;top:4em;right:1em;padding:1em 0;width:200px;text-align:center;font-size:1.5em;-moz-border-radius:5px;-webkit-border-radius: 5px;background-color:red;color:#fff;}
-div#job a#complete_job {position:absolute;top:8em;right:1em;padding:1em 0;width:200px;text-align:center;font-size:1.5em;-moz-border-radius:5px;-webkit-border-radius: 5px;background-color:#eee;color:#333;}
+div#job a#complete_job, div#complete_dialog a.no {position:absolute;top:8em;right:1em;padding:1em 0;width:200px;text-align:center;font-size:1.5em;-moz-border-radius:5px;-webkit-border-radius: 5px;background-color:#eee;color:#333;}
+div#complete_dialog a.yes {background-color:#eee;color:#333;}
+div#complete_dialog a.no {background-color:green;color:#fff;}
 div#job a#return_home {position:absolute;top:1em;right:1em;color:#333;font-size:1.5em;}
 div#job div#job_description {width:70%;}
-div#job form {margin-top:4em;}
+div#job form {margin-top:0;}
 div#job form p.description {position:absolute;top:4.5em;left:50%;}
 div#job form input.save_job {position:absolute;right:1em;bottom:1em;}
 div#job a.edit_job {position:absolute;left:1em;bottom:1em;padding:.3em .7em;background-color:#eee;color:blue;-moz-border-radius:5px;-webkit-border-radius: 5px;}

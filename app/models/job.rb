@@ -54,19 +54,7 @@ class Job < ActiveRecord::Base
     Timer.last(:conditions => {:job_id => self.id})
   end
   
-  def total_time_logged
-    time = 0
-    self.timers.each do |timer|
-      if timer.end_time
-        time += timer.end_time - timer.start_time
-      else
-        time += Time.now - timer.start_time
-      end
-    end
-    return (time/60).round
-  end
-  
-  def recorded_time
+  def recorded_time_helper
     time = 0
     self.timers.each do |timer|
       time += timer.interval

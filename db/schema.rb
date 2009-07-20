@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090624130858) do
+ActiveRecord::Schema.define(:version => 20090720180233) do
 
   create_table "jobs", :force => true do |t|
     t.integer  "ro_number"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20090624130858) do
     t.string   "extra_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "recorded_time"
   end
 
   create_table "technicians", :force => true do |t|
