@@ -105,7 +105,11 @@ function bind_submit(){
 // bind to edit so that we can edit this job
 function bind_edit(job_id){
   $("a.edit_job").bind("click", function(){
-    $("div#job").slideUp("fast").load('/jobs/'+job_id+'/edit').slideDown('slow');
+    $("div#job").slideUp("fast").load('/jobs/'+job_id+'/edit', function(){
+      $("a#save_job").bind("click", function(){
+        $("input.save").click();
+      });
+    }).slideDown('slow');
   });
 };
 // complete
