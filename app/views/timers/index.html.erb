@@ -5,7 +5,7 @@
     </thead>
     <tbody>
       <% @jobs.each do |job|  %>
-        <tr bg_color="<%= job.technician.color %>" font_color="<%= job.technician.font_color %>">
+        <tr bg_color="<%= job.technician.color %>" font_color="<%= job.technician.font_color %>" job_id="<%= job.id %>" technician_id="<%= job.technician_id %>">
           <td><%= job.id %></td>
           <td><%= job.ro_number %></td>
           <td><%= job.technician.name %></td>

@@ -28,24 +28,8 @@ $().ready(function() {
   $("div#job").hide();
 
   technicians();
-  $('#timers').fadeOut("fast").load('/timers', function(){
-    $('table.jobs tr').each(function(){
-      var bg_color = $(this).attr('bg_color');
-      var font_color = $(this).attr('font_color');
-      var tds = $(this).children();
-      tds.css({backgroundColor: bg_color, color: font_color});
-    });
-  }).fadeIn("fast");
-  var refreshTimers = setInterval(function(){
-    $('#timers').fadeOut("fast").load('/timers', function(){
-      $('table.jobs tr').each(function(){
-        var bg_color = $(this).attr('bg_color');
-        var font_color = $(this).attr('font_color');
-        var tds = $(this).children();
-        tds.css({backgroundColor: bg_color, color: font_color});
-      });
-    }).fadeIn("fast");
-  }, 60000);
+  
+  setInterval(timers_table(), 60000);
 });
 
 // make link javascript friendly
@@ -124,42 +108,6 @@ function bind_edit(job_id){
     $("div#job").slideUp("fast").load('/jobs/'+job_id+'/edit').slideDown('slow');
   });
 };
-// close everything link binder
-function bind_closer(){
-  cleanse_link($("a#return_home"))
-  $("a#return_home").bind("click", function(){
-    close_everything();
-  });
-};
-// close everything thats open
-function close_everything(){
-  $("div#job").slideUp("fast");
-  $("div#jobs").slideUp("fast");
-};
-// setup my start stop hooks
-function timer(job_id, link){
-  $("a.toggle_timer").bind("click", function(){
-    if ($(this).attr("id")=="start_timer"){
-      $.ajax({
-        type: "POST",
-        url: "/timers",
-        data: "timer[job_id]="+job_id,
-        success: function(){
-          pull_job(link)
-        }
-      });
-    }else{
-      $.ajax({
-        type: "POST",
-        url: "/timers/"+$(this).attr("timer_id"),
-        data: "_method=put",
-        success: function(){
-          pull_job(link)
-        }
-      });
-    }
-  });
-};
 // complete
 function bind_complete(job_id){
   var time_spent = "";
@@ -198,6 +146,42 @@ function bind_complete(job_id){
     });
   });
 };
+// close everything link binder
+function bind_closer(){
+  cleanse_link($("a#return_home"))
+  $("a#return_home").bind("click", function(){
+    close_everything();
+  });
+};
+// close everything thats open
+function close_everything(){
+  $("div#job").slideUp("fast");
+  $("div#jobs").slideUp("fast");
+};
+// setup my start stop hooks
+function timer(job_id, link){
+  $("a.toggle_timer").bind("click", function(){
+    if ($(this).attr("id")=="start_timer"){
+      $.ajax({
+        type: "POST",
+        url: "/timers",
+        data: "timer[job_id]="+job_id,
+        success: function(){
+          pull_job(link)
+        }
+      });
+    }else{
+      $.ajax({
+        type: "POST",
+        url: "/timers/"+$(this).attr("timer_id"),
+        data: "_method=put",
+        success: function(){
+          pull_job(link)
+        }
+      });
+    }
+  });
+};
 // post completed form data
 function post_job_form(job_id, time_spent){
   $.ajax({
@@ -207,5 +191,22 @@ function post_job_form(job_id, time_spent){
     success: function(){
       window.location.reload();
     }
+  });
+};
+// setup my timers table
+function timers_table(){
+  $('#timers').load('/timers', function(){
+    $('table.jobs tbody tr').each(function(){
+      $(this).bind("click", function(){
+        var technician_id = $(this).attr('technician_id');
+        var job_id = $(this).attr('job_id');
+        var link = $("<a href='javascript' alt='/technicians/"+technician_id+"/jobs/"+job_id+"'></a>")
+        pull_job(link);
+      });
+      var bg_color = $(this).attr('bg_color');
+      var font_color = $(this).attr('font_color');
+      var tds = $(this).children();
+      tds.css({backgroundColor: bg_color, color: font_color});
+    });
   });
 };
