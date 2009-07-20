@@ -1,0 +1,5 @@
+<h2 id="edit_job">Editing Job #<% @job.id %></h2>
+<% form_for @job do |form| %>
+  <%= render :partial => 'form', :locals => {:form => form} %>
+  <%= form.submit 'Save', :class => 'save_job' %>
+<% end %>

@@ -21,15 +21,10 @@ class JobsController < ApplicationController
     end
   end
   
-  def timers
-    @jobs = Job.active_jobs
-  end
-  
-
   def show
     @job = Job.find(params[:id])
-    if Timer.find(:first, :conditions => {:job_id => @job.id, :end_time => nil})
-      @timer = Timer.find(:first, :conditions => {:job_id => @job.id, :end_time => nil})
+    if @timer = Timer.last(:conditions => {:job_id => @job.id, :end_time => nil})
+      @timer
     else
       @timer = Timer.new
     end
@@ -44,6 +39,15 @@ class JobsController < ApplicationController
     @technician = Technician.find(params[:technician_id])
     @job = Job.new
 
+    respond_to do |format|
+      format.html { render :layout => false }
+      format.xml  { render :xml => @job }
+    end
+  end
+  
+  def edit
+    @job = Job.find(params[:id])
+    
     respond_to do |format|
       format.html { render :layout => false }
       format.xml  { render :xml => @job }
@@ -67,7 +71,10 @@ class JobsController < ApplicationController
 
   def update
     @job = Job.find(params[:id])
-    @job.completed = Time.now
+    if params[:completed]
+      @job.completed = Time.now
+      @job.save
+    end
 
     respond_to do |format|
       if @job.update_attributes(params[:job])

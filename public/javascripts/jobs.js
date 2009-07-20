@@ -92,14 +92,15 @@ function job(){
 function pull_job(link){
   $("div#job").slideUp('fast');
   $("div#job").load(link.attr('alt'), function(){
-    pausecomp(300);
+    // pausecomp(1000);
     $("div#job").slideDown("slow", function(){
       $("input#job_ro_number").focus();
       var job_id = $("div#job h2").attr('id');
       timer(job_id, link);
       bind_closer();
-      bind_complete();
+      bind_complete(job_id);
       bind_submit();
+      bind_edit(job_id);
     });
   });
 };
@@ -114,6 +115,11 @@ function bind_submit(){
   $("input.submit").hide();
   $("a#create_job").bind("click", function(){
     $("input.submit").click();
+  });
+};
+function bind_edit(job_id){
+  $("a.edit_job").bind("click", function(){
+    $("div#job").slideUp("fast").load('/jobs/'+job_id+'/edit').slideDown('slow');
   });
 };
 // close everything link binder
@@ -131,28 +137,37 @@ function close_everything(){
 // setup my start stop hooks
 function timer(job_id, link){
   $("a.toggle_timer").bind("click", function(){
-    $("input.timer").click();
-    var timer_value = $.ajax({
-      type: "GET",
+    if ($(this).attr("id")=="start_timer"){
+      $.ajax({
+        type: "POST",
+        url: "/timers",
+        data: "timer[job_id]="+job_id,
+        success: function(){
+          pull_job(link)
+        }
+      });
+    }else{
+      $.ajax({
+        type: "POST",
+        url: "/timers/"+$(this).attr("timer_id"),
+        data: "_method=put",
+        success: function(){
+          pull_job(link)
+        }
+      });
+    }
+  });
+};
+// complete
+function bind_complete(job_id){
+  $("a#complete_job").bind("click", function(){
+    $.ajax({
+      type: "POST",
       url: "/jobs/"+job_id,
-      dataType: "xml",
+      data: "_method=put&completed=true",
       success: function(){
-        pull_job(link);
+        window.location.reload();
       }
     });
   });
 };
-// complete
-function bind_complete(){
-  $("a#complete_job").bind("click", function(){
-    $("input.completed").click();
-  });
-};
-// pause script
-function pausecomp(millis){
-  var date = new Date();
-  var curDate = null;
-
-  do { curDate = new Date(); } 
-  while(curDate-date < millis);
-}

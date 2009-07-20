@@ -13,9 +13,11 @@ class Job < ActiveRecord::Base
   end
   
   def stop_timers_if_completed
-    self.timers.each do |timer|
-      if timer.end_time == nil
-        timer.update_attributes(:end_time => Time.now)
+    if self.completed != nil
+      self.timers.each do |timer|
+        if timer.end_time == nil
+          timer.update_attributes(:end_time => Time.now)
+        end
       end
     end
   end
@@ -49,7 +51,7 @@ class Job < ActiveRecord::Base
   end
   
   def last_timer
-    Timer.find(:last, :conditions => {:job_id => self.id})
+    Timer.last(:conditions => {:job_id => self.id})
   end
   
   def total_time_logged

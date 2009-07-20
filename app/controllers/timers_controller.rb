@@ -1,26 +1,26 @@
 class TimersController < ApplicationController
   
+  def index
+    @jobs = Job.active_jobs
+  end
+  
   def create
     @timer = Timer.new(params[:timer])
 
-    respond_to do |format|
-      if @timer.save
-        format.xml  { head :ok }
-      else
-        format.xml  { render :xml => @timer.errors, :status => :unprocessable_entity }
-      end
+    if @timer.save
+      render :nothing => true, :layout => false, :response => 200
+    else
+      render :nothing => true, :layout => false, :response => 500
     end
   end
   
   def update
     @timer = Timer.find(params[:id])
 
-    respond_to do |format|
-      if @timer.update_attributes(params[:timer])
-        format.xml  { head :ok }
-      else
-        format.xml  { render :xml => @timer.errors, :status => :unprocessable_entity }
-      end
+    if @timer.update_attributes(params[:timer])
+      render :nothing => true, :layout => false, :response => 200
+    else
+      render :nothing => true, :layout => false, :response => 500
     end
   end
 

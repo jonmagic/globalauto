@@ -1,6 +1,7 @@
 <h2 id="new_job">New Job</h2>
 <% form_for @job do |form| %>
   <%= render :partial => 'form', :locals => {:form => form} %>
+  <%= form.hidden_field :technician_id, :value => @technician.id %>
   <%= form.submit 'Save', :class => 'submit' %>
 <% end %>
 

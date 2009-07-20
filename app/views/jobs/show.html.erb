@@ -1,24 +1,14 @@
 <h2 id="<%= @job.id %>">RO# <%= @job.ro_number %></h2>
-<p>Lastname: <%= @job.clients_lastname %></p>
-<p><b>Description:</b> <br /><%= @job.description %></p>
-
-<% remote_form_for @timer do |f| %>
-  <%= f.hidden_field :job_id, :value => @job.id %>
-  <%= f.submit 'Save', :class => 'hide timer' %>
-<% end %>
-
-<% form_for @job do |f| %>
-  <%= f.submit 'Save', :class => 'completed hide' %>
-<% end %>
+<p style="margin-top:3em"><b>Lastname:</b> <%= @job.clients_lastname %></p>
+<p><b>Description:</b><br /><%= @job.description %></p>
 
 <% if @timer.new_record? %>
   <a href="javascript:void(0)" class="toggle_timer" id="start_timer">Start</a>
 <% else %>
-  <a href="javascript:void(0)" class="toggle_timer" id="stop_timer">Stop</a>
+  <a href="javascript:void(0)" class="toggle_timer" id="stop_timer" timer_id="<%= @timer.id %>">Stop</a>
 <% end %>
 
-<% if @job.has_had_a_timer? && @job.status == "Stopped" %>
-  <a href="javascript:void(0)" class="" id="complete_job">Complete</a>
-<% end %>
+<a href="javascript:void(0)" class="" id="complete_job">Complete</a>
 
 <a href="/" id="return_home">Return Home</a>
+<a href="javascript:void(0)" class="edit_job" id="">Edit</a>
