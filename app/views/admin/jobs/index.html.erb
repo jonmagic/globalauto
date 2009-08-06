@@ -1,6 +1,6 @@
 <table class="itu" >
   <thead>
-    <tr><th class="first">Id</th><th>RO #</th><th>Lastname</th><th>Description</th><th>Technician</th><th>Recorded Time</th></tr>
+    <tr><th class="first">Id</th><th>RO #</th><th>Lastname</th><th>Description</th><th>Technician</th><th>Recorded Time</th><th>Flat Rate Time</th><th>Extra Time</th></tr>
   </thead>
   <tbody>
     <% @jobs.each do |job|  %>
@@ -11,6 +11,8 @@
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.description[0...80] + "..." %></a></td>
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.technician.name %></a></td>
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= time_helper(job.recorded_time) %></a></td>
+        <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= time_helper(job.flatrate_time) %></a></td>
+        <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= time_helper(job.extra_time) %></a></td>
       </tr>
     <% end %>
   </tbody>
