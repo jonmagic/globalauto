@@ -16,7 +16,7 @@ ul.jobs li a.job span.description {position:absolute;top:3em;font-size:1.5em;}
 ul.jobs li a.job span.status {position:absolute;top:3px;right:8px;font-size:1.5em;}
 a.new_job {display:block;padding:1em 1.5em;background-color:#eee;color:#000;text-decoration:none;text-align:center;font-size:2em;height:50px;}
 
-div#job {position:relative;height:12em;margin-bottom:2em;padding:6em 2em 2em 2em;text-align:left;border:2px solid #ccc;-moz-border-radius:15px;-webkit-border-radius:15px;}
+div#job {position:relative;height:14em;margin-bottom:2em;padding:6em 2em 2em 2em;text-align:left;border:2px solid #ccc;-moz-border-radius:15px;-webkit-border-radius:15px;}
 div#job p {margin:0 0 .5em 0;padding:0;}
 div#job table {font-size:1.4em;}
 div#job input {height:1em;font-size:.9em;}

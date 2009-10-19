@@ -9,4 +9,23 @@
   <tr>
     <td><b>Description:</b></td><td><%= form.text_area :description %></td>
   </tr>
+  <tr>
+    <td><b>Flat-Rate:</b></td>
+    <td>
+      <span class="flatrate_time">
+        Hours: <input class="hours" type="text" />
+        Minutes: <input class="minutes" type="text" />
+        <%= form.hidden_field :flatrate_time %>
+      </span>
+    </td>
+  </tr>
 </table>
+
+<script>
+  $('.flatrate_time input.hours').bind('change', function(){
+    $(".flatrate_time").timecalc('input#job_flatrate_time');
+  });
+  $('.flatrate_time input.minutes').bind('change', function(){
+    $(".flatrate_time").timecalc('input#job_flatrate_time');
+  });
+</script>

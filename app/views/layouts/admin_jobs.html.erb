@@ -47,7 +47,7 @@
     </div>
     
     <div id="delete_jobs" class="jqmWindow">
-      <form action="delete_jobs">
+      <form action="<%= admin_delete_jobs_path %>">
         <p><label>Start Date:</label> <input name="start_date" id="start_date" type="text" /></p>
         <p><label>End Date:</label> <input name="end_date" id="end_date" type="text" /></p>
         <p>Clicking "Delete Jobs" will completely delete jobs between these dates, are you sure this is what you want to do?</p>
