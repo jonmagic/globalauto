@@ -18,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :technicians
     admin.resources :settings
     admin.resources :reports
+    admin.delete_jobs 'delete_jobs', :controller => 'jobs', :action => 'delete_jobs'
     admin.resources :jobs
   end
     

@@ -10,7 +10,7 @@
 		<meta name="resource-type" content="document" />
 		<meta name="MSSmartTagsPreventParsing" content="true" />
 		<%= stylesheet_link_tag "blueprint/screen", "common", "jquery-theme", "admin_jobs" %>
-		<%= javascript_include_tag "jquery", "jquery-ui", "common", "admin_jobs", "jquery.timecalc" %>
+		<%= javascript_include_tag "jquery", "jquery-ui", "jquery.form", "common", "admin_jobs", "jquery.timecalc" %>
 	</head>
 	<body>
     <div id="header">
@@ -30,6 +30,10 @@
         <li><a href="/admin/jobs/?status=completed" class="completed">Completed</a><%= totals_helper(:completed) %></li>
         <li><a href="/admin/jobs/?status=recorded" class="recorded">Recorded</a></li>
       </ul>
+      <h2>Other Actions</h2>
+      <ul>
+        <li><a href="javascript:void(0)" class="delete" id="delete_jobs_link">Delete Jobs</a></li>
+      </ul>
     </div>
     
     <div id="center" class="container">
@@ -40,6 +44,15 @@
       <div class="col1"></div>
       <div class="col2"></div>
       <div class="col3"><a href="/user/logout">Logout</a></div>
+    </div>
+    
+    <div id="delete_jobs" class="jqmWindow">
+      <form action="delete_jobs">
+        <p><label>Start Date:</label> <input name="start_date" id="start_date" type="text" /></p>
+        <p><label>End Date:</label> <input name="end_date" id="end_date" type="text" /></p>
+        <p>Clicking "Delete Jobs" will completely delete jobs between these dates, are you sure this is what you want to do?</p>
+        <input type="submit" value="Delete Jobs" />
+      </form>
     </div>
 	</body>
 </html>

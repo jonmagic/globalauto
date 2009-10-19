@@ -1,6 +1,6 @@
 class Admin::JobsController < ApplicationController
   layout 'admin_jobs'
-  before_filter :load_totals, :except => [:create, :update]
+  before_filter :load_totals, :except => [:create, :update, :delete_jobs]
   
   def index
     @jobs = Job.limit(params[:status])
@@ -83,6 +83,34 @@ class Admin::JobsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(jobs_url) }
       format.xml  { head :ok }
+    end
+  end
+  
+  def delete_jobs
+    # find all the jobs between my start and end date
+    @jobs = Job.find(:all) do
+      created_at >= params[:start_date].to_date
+      created_at <= params[:end_date].to_date
+    end
+    if @jobs.length > 0
+      # delete each job
+      @jobs.each { |job| job.destroy }
+      # search for jobs in that date range again
+      @jobs = Job.find(:all) do
+        created_at >= params[:start_date].to_date
+        created_at <= params[:end_date].to_date
+      end
+      # if there are still jobs return failure, otherwise success
+      if @jobs.length == 0
+        flash[:notice] = "Jobs deleted successfully!"
+        redirect_to '/admin/jobs'
+      else
+        flash[:notice] = "Not all jobs could be deleted :-("
+        redirect_to '/admin/jobs'
+      end
+    else
+      flash[:notice] = "There were no jobs to delete in that date range."
+      redirect_to '/admin/jobs'
     end
   end
   
