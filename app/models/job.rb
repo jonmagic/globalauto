@@ -80,14 +80,19 @@ class Job < ActiveRecord::Base
   def self.limit(status, technician_id="all")
     past = Date.today - 100.years
     future = Date.today + 100.years
-    if status == nil || status == "completed"
-      conditions = {:completed => past..future, :flatrate_time => ""}
-    elsif status == "open"
-      conditions = {:completed => nil}
-    elsif status == "recorded"
-      conditions = ["flatrate_time >= ?", 0]
+    find :all do
+      all do
+        if status == nil || status == "completed"
+          completed <=> (past..future)
+          flatrate_time  == ""
+        elsif status == "open"
+          completed == nil
+        elsif status == "recorded"
+          flatrate_time >= 0
+          completed.not.nil?
+        end
+      end
     end
-    self.all(:conditions => conditions)
   end
   
   def self.first_completed_job
