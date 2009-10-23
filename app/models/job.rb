@@ -81,7 +81,7 @@ class Job < ActiveRecord::Base
     past = Date.today - 100.years
     future = Date.today + 100.years
     if status == nil || status == "completed"
-      conditions = {:completed => past..future, :flatrate_time => nil}
+      conditions = {:completed => past..future, :flatrate_time => ""}
     elsif status == "open"
       conditions = {:completed => nil}
     elsif status == "recorded"
