@@ -108,7 +108,7 @@ class Job < ActiveRecord::Base
   def self.first_completed_job
     past = Date.today - 100.years
     future = Date.today + 100.years
-    self.first(:conditions => {:completed => past..future, :flatrate_time => nil})
+    self.first(:conditions => {:completed => past..future, :flatrate_time => ""})
   end
   
   

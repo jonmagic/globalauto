@@ -12,11 +12,13 @@ function buildTables(){
     $(this).addClass("remove-margins-padding");
   });
   // add my even odd classes to rows
-  var rowClass = "even";
-  $("table.itu tr").each(function(){
-    $(this).addClass(rowClass);
-    rowClass = (rowClass == 'even' ? 'odd' : 'even');      
-  });
+  // var rowClass = "even";
+  // $("table.itu tr").each(function(){
+  //   $(this).addClass(rowClass);
+  //   rowClass = (rowClass == 'even' ? 'odd' : 'even');      
+  // });
+  $("table.itu tr:even").addClass("even");
+  $("table.itu tr:odd").addClass("odd");
   // setup my row hover
   $("table.itu tr").hover(function(){
     $(this).addClass("table-row-selected");

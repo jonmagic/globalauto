@@ -1,0 +1,8 @@
+div#sidebar .recorded_vs_flatrate {background:url("/images/icons/chart_bar.png") no-repeat 0px 1px;}
+div#sidebar .time_sheet {background:url("/images/icons/clock.png") no-repeat 0px 1px;}
+
+table.itu tr.row_odd td {background-color:#fff;}
+table.itu tr.row_even td {background-color:#f1f5fa;}
+table.itu tr td a {padding:1px 5px;color:#404040;display:block;}
+table.itu tr.table-row-selected td {color:#fff;background-color:#3d80df;border-right:1px solid #346dbe}
+table.itu tr.table-row-selected td a {color:#fff;}

@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.find_next_completed_record "/admin/jobs/next_job", :controller => 'admin/jobs', :action => 'find_next_completed_job'
   map.admin "/admin", :controller => 'admin/settings', :action => 'index'
   map.report_recorded_vs_flatrate "/admin/reports/recorded_vs_flatrate", :controller => 'admin/reports', :action => 'recorded_vs_flatrate'
-
+  map.report_time_sheet "/admin/reports/time_sheet", :controller => 'admin/reports', :action => 'time_sheet'
   map.resources :timers
   
   map.resources :jobs
