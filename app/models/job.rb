@@ -1,5 +1,5 @@
 class Job < ActiveRecord::Base
-  has_many :timers
+  has_many :timers, :dependent => :destroy
   belongs_to :technician
   
   validates_presence_of :ro_number, :description, :technician_id, :clients_lastname
@@ -70,10 +70,20 @@ class Job < ActiveRecord::Base
     past = Date.today - 100.years
     future = Date.today + 100.years
     totals = {}
+
     open = {:completed => nil}
-    completed = {:completed => past..future, :flatrate_time => nil}
-    totals[:open]    = (self.find(:all, :conditions => open)).length
-    totals[:completed]  = (self.find(:all, :conditions => completed)).length
+    totals[:open]    = (self.all(:conditions => open)).length
+
+    completed = {:completed => past..future, :flatrate_time => ""}
+    totals[:completed]  = (self.all(:conditions => completed)).length
+
+    recorded = find :all do
+      all do
+        flatrate_time >= 0
+        # completed.not.nil?
+      end
+    end
+    totals[:recorded] = recorded.length
     return totals
   end
   

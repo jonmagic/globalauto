@@ -117,6 +117,7 @@ class Admin::JobsController < ApplicationController
   protected
 
     def load_totals
-      @totals = Job.totals
+      # @totals = Job.totals
+      @totals = {}
     end
 end

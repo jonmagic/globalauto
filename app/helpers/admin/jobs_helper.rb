@@ -46,7 +46,7 @@ module Admin::JobsHelper
   end
     
   def show_edit_helper(job)
-    job.flatrate_time ? "" : "/edit"
+    job.flatrate_time.blank? ? "/edit" : ""
   end
   
   
