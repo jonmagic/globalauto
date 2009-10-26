@@ -81,7 +81,7 @@ class Admin::JobsController < ApplicationController
     @job.destroy
 
     respond_to do |format|
-      format.html { redirect_to(jobs_url) }
+      format.html { redirect_to :back }
       format.xml  { head :ok }
     end
   end
