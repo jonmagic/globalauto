@@ -29,7 +29,8 @@ $().ready(function() {
 
   technicians();
   
-  setInterval(timers_table(), 60000);
+  timers_table();
+  setInterval(function(){timers_table()}, 30000);
 });
 
 // make link javascript friendly
