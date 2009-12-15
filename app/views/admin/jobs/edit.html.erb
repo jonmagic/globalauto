@@ -5,12 +5,12 @@
   <% form_for [:admin, @job] do |f| %>
     <h4>Description:</h4>
     <p><%= @job.description %></p>
-    <h4>Total Time Logged: <%= time_helper(@job.recorded_time) %></h4>
+    <h4>Total Time Logged: <%= @job.recorded_time.to_i.to_f/100 %></h4>
     <h4>Flat-rate Time</h4>
-    <p class="flatrate_time">Hours: <input class="hours" type="text" value="<%= time_hours_helper(@job.flatrate_time) %>" /> Minutes: <input class="minutes" type="text" value="<%= time_minutes_helper(@job.flatrate_time) %>" /></p>
+    <p class="flatrate_time">Hours: <input class="hours" type="text" value="<%= time_hours_helper(@job.flatrate_time) %>" /> Hundredths: <input class="hundredths" type="text" value="<%= time_minutes_helper(@job.flatrate_time) %>" /></p>
     <%= f.hidden_field :flatrate_time %>
     <h4>Extra Time</h4>
-    <p class="extra_time">Hours: <input class="hours" type="text" value="<%= time_hours_helper(@job.extra_time) %>" /> Minutes: <input class="minutes" type="text" value="<%= time_minutes_helper(@job.extra_time) %>" /></p>
+    <p class="extra_time">Hours: <input class="hours" type="text" value="<%= time_hours_helper(@job.extra_time) %>" /> Hundredths: <input class="hundredths" type="text" value="<%= time_minutes_helper(@job.extra_time) %>" /></p>
     <%= f.hidden_field :extra_time %>
     <%= f.submit 'Update', :class => 'hide' %>
   <% end %>
@@ -24,13 +24,13 @@
     $('.flatrate_time input.hours').bind('change', function(){
       $(".flatrate_time").timecalc('input#job_flatrate_time');
     });
-    $('.flatrate_time input.minutes').bind('change', function(){
+    $('.flatrate_time input.hundredths').bind('change', function(){
       $(".flatrate_time").timecalc('input#job_flatrate_time');
     });
     $('.extra_time input.hours').bind('change', function(){
       $(".extra_time").timecalc('input#job_extra_time');
     });
-    $('.extra_time input.minutes').bind('change', function(){
+    $('.extra_time input.hundredths').bind('change', function(){
       $(".extra_time").timecalc('input#job_extra_time');
     });
     // add my save button
@@ -47,8 +47,8 @@
     event.preventDefault();
     $(".flatrate_time").timecalc('input#job_flatrate_time');
     $(".extra_time").timecalc('input#job_extra_time');
-    $(".flatrate_time").remove()
-    $(".extra_time").remove()
+    $(".flatrate_time").remove();
+    $(".extra_time").remove();
     var job_id = $("#job").attr('job_id');
     var flatrate_time = $("input#job_flatrate_time").val();
     var extra_time = $("input#job_extra_time").val();

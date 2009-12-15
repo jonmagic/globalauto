@@ -36,10 +36,10 @@
         <td class="fake_link_padding"><%= job.id %></td>
         <td class="fake_link_padding"><%= job.ro_number %></td>
         <td class="fake_link_padding"><%= job.technician.name %></td>
-        <td class="fake_link_padding"><%= time_helper(job.recorded_time) %></td>
-        <td class="fake_link_padding"><%= time_helper(job.flatrate_time) %></td>
-        <td class="fake_link_padding"><%= time_helper(job.extra_time) %></td>
-        <td class="fake_link_padding"><%= time_helper(job.difference) %></td>
+        <td class="fake_link_padding"><%= job.recorded_time %></td>
+        <td class="fake_link_padding"><%= job.flatrate_time %></td>
+        <td class="fake_link_padding"><%= job.extra_time %></td>
+        <td class="fake_link_padding"><%= job.difference %></td>
         <td class="fake_link_padding"><%= running_difference(job.difference) %></td>
       </tr>
     <% end %>

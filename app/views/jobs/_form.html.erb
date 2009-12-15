@@ -13,8 +13,8 @@
     <td><b>Flat-Rate:</b></td>
     <td>
       <span class="flatrate_time">
-        Hours: <input class="hours" type="text" />
-        Minutes: <input class="minutes" type="text" />
+        Hours: <input class="hours" type="text" value="<%= @job.flatrate_time.split('.')[0] unless @job.flatrate_time.blank? %>" />
+        Hundredths: <input class="hundredths" type="text" value="<%= @job.flatrate_time.split('.')[1] unless @job.flatrate_time.blank? %>" />
         <%= form.hidden_field :flatrate_time %>
       </span>
     </td>
@@ -25,7 +25,7 @@
   $('.flatrate_time input.hours').bind('change', function(){
     $(".flatrate_time").timecalc('input#job_flatrate_time');
   });
-  $('.flatrate_time input.minutes').bind('change', function(){
+  $('.flatrate_time input.hundredths').bind('change', function(){
     $(".flatrate_time").timecalc('input#job_flatrate_time');
   });
 </script>

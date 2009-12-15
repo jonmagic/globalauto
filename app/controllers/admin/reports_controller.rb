@@ -1,7 +1,7 @@
 class Admin::ReportsController < ApplicationController
   layout 'reports'
   def index
-    
+    redirect_to '/admin/reports/recorded_vs_flatrate'
   end
   
   def recorded_vs_flatrate

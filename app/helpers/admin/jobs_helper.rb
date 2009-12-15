@@ -38,11 +38,7 @@ module Admin::JobsHelper
     @runningdiff << time
     total = 0
     @runningdiff.each {|i| total += i}
-    if Timer.convert_time(total.to_f)["positive"]
-      Timer.convert_time(total.to_f)["hours_and_minutes"]
-    else
-      "-"+Timer.convert_time(total.to_f)["hours_and_minutes"]
-    end
+    return total
   end
     
   def show_edit_helper(job)

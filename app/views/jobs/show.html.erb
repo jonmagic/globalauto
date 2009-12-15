@@ -1,6 +1,7 @@
 <h2 id="<%= @job.id %>">RO# <%= @job.ro_number %></h2>
 <p style=""><b>Lastname:</b> <%= @job.clients_lastname %></p>
 <p><b>Description:</b><br /><%= @job.description %></p>
+<p><b>Flat-rate:</b> <%= @job.flatrate_time unless @job.flatrate_time.blank? %></p>
 
 <% if @timer.new_record? %>
   <a href="javascript:void(0)" class="toggle_timer" id="start_timer">Start</a>
@@ -21,7 +22,7 @@
 <div id="new_job_time">
   <h3>New job time</h3>
   <p class="time_spent">
-    Hours: <input class="hours" type="text" value="0" /> Minutes: <input class="minutes" type="text" value="0" />
+    Hours: <input class="hours" type="text" value="0" /> Hundredths: <input class="minutes" type="text" value="0" />
     <input type="hidden" id="time_spent" name="new_time_field" value="0" />
   </p>
   

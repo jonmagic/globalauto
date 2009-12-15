@@ -59,7 +59,7 @@ class Job < ActiveRecord::Base
     self.timers.each do |timer|
       time += timer.interval
     end
-    return time.to_f/60
+    return (time.seconds.hours*100).to_i.to_f/100
   end
   
   def difference

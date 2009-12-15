@@ -137,7 +137,7 @@ function bind_complete(job_id){
       $("div#new_job_time input.hours").bind("change", function(){
         $("p.time_spent").timecalc('input#time_spent');
       });
-      $("div#new_job_time input.minutes").bind("change", function(){
+      $("div#new_job_time input.hundredths").bind("change", function(){
         $("p.time_spent").timecalc('input#time_spent');
       });
       $("div#new_job_time a#save_job").bind("click", function(){

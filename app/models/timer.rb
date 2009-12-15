@@ -30,10 +30,10 @@ class Timer < ActiveRecord::Base
   
   def self.convert_time(time)
     time < 0 ? positive = false : positive = true
-    time = time.abs
-    time = time.to_i
-    hours = (time/60)
-    minutes = (time - hours*60)
+    new_time = time.abs
+    new_time = new_time.to_i
+    hours = (new_time/60)
+    minutes = (new_time - hours*60)
     if minutes >= 10
       minutes = minutes.to_s
     else
@@ -41,7 +41,7 @@ class Timer < ActiveRecord::Base
     end
     hash = {}
     hash["positive"] = positive
-    hash["hours"], hash["minutes"], hash["hours_and_minutes"] = hours.to_s, minutes, hours.to_s+":"+minutes
+    hash["hours"], hash["minutes"], hash["hours_and_minutes"], hash["hours_and_hundredths"] = hours.to_s, minutes, hours.to_s+":"+minutes, time.to_s
     return hash
   end
   
