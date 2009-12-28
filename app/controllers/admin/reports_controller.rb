@@ -62,16 +62,16 @@ class Admin::ReportsController < ApplicationController
       rows[tech_id]["Name"] = Technician.find(tech_id).name
       rows[tech_id]["Jobs"] = []
       rows[tech_id]["Totals"] = {}
-      rows[tech_id]["Totals"]["Recorded"] = 0
-      rows[tech_id]["Totals"]["Flatrate"] = 0
-      rows[tech_id]["Totals"]["Extra"] = 0
+      rows[tech_id]["Totals"]["Recorded"] = 0.0
+      rows[tech_id]["Totals"]["Flatrate"] = 0.0
+      rows[tech_id]["Totals"]["Extra"] = 0.0
     end
     
     jobs.each do |job|
       rows[job.technician_id]["Jobs"] << job
-      rows[job.technician_id]["Totals"]["Recorded"] += job.recorded_time.to_i
-      rows[job.technician_id]["Totals"]["Flatrate"] += job.flatrate_time.to_i
-      rows[job.technician_id]["Totals"]["Extra"] += job.extra_time.to_i
+      rows[job.technician_id]["Totals"]["Recorded"] += job.recorded_time.to_f
+      rows[job.technician_id]["Totals"]["Flatrate"] += job.flatrate_time.to_f
+      rows[job.technician_id]["Totals"]["Extra"] += job.extra_time.to_f
     end
     
     @techs = rows.values

@@ -37,17 +37,17 @@
             <td rowspan="<%= tech["Jobs"].length + 1 %>"><%= tech["Name"] %></td>
           <% end %>
           <td><%= job.ro_number %></td>
-          <td><%= time_helper(job.recorded_time) %></td>
-          <td><%= time_helper(job.flatrate_time) %></td>
-          <td><%= time_helper(job.extra_time) %></td>
+          <td><%= job.recorded_time %></td>
+          <td><%= job.flatrate_time %></td>
+          <td><%= job.extra_time %></td>
         </tr>
         <% tech["Counter"] += 1 %>
       <% end %>
       <tr class="<%= even_odd %>">
         <td>Totals</td>
-        <td><%= time_helper(tech["Totals"]["Recorded"]) %></td>
-        <td><%= time_helper(tech["Totals"]["Flatrate"]) %></td>
-        <td><%= time_helper(tech["Totals"]["Extra"]) %></td>
+        <td><%= tech["Totals"]["Recorded"] %></td>
+        <td><%= tech["Totals"]["Flatrate"] %></td>
+        <td><%= tech["Totals"]["Extra"] %></td>
       </tr>
       <% even_odd = (even_odd == "row_even" ? "row_odd" : "row_even") %>
     <% end %>
