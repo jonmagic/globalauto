@@ -10,7 +10,7 @@
           <td><%= job.ro_number %></td>
           <td><%= job.lastname %></td>
           <td><%= job.technician.name %></td>
-          <td><%= job.flatrate_time %></td>
+          <td><%= @job.flatrate_time unless @job.flatrate_time.blank? %></td>
           <td><%= job.recorded_time_helper %></td>
         </tr>
       <% end %>
