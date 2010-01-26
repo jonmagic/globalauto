@@ -8,7 +8,7 @@
         <tr bg_color="<%= job.technician.color %>" font_color="<%= job.technician.font_color %>" job_id="<%= job.id %>" technician_id="<%= job.technician_id %>">
           <td><%= job.id %></td>
           <td><%= job.ro_number %></td>
-          <td><%= job.lastname %></td>
+          <td><%= job.clients_lastname %></td>
           <td><%= job.technician.name %></td>
           <td><%= @job.flatrate_time unless @job.flatrate_time.blank? %></td>
           <td><%= job.recorded_time_helper %></td>
