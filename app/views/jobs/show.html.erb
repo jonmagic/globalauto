@@ -2,6 +2,7 @@
 <p style=""><b>Lastname:</b> <%= @job.clients_lastname %></p>
 <p><b>Description:</b><br /><%= @job.description %></p>
 <p><b>Flat-rate:</b> <%= @job.flatrate_time unless @job.flatrate_time.blank? %></p>
+<p><b>Recorded:</b> <%= @job.recorded_time_helper %></p>
 
 <% if @timer.new_record? %>
   <a href="javascript:void(0)" class="toggle_timer" id="start_timer">Start</a>
