@@ -185,6 +185,7 @@ function timer(job_id, link){
         }
       });
     }
+    timers_table()
   });
 };
 // post completed form data
