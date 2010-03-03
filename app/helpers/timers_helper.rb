@@ -1,9 +1,9 @@
 module TimersHelper
   def running_image_helper(job)
     if job.status == "Running"
-      image_tag '/images/icons/control_play_blue.png'
+      image_tag '/images/play.png'
     else
-      image_tag '/images/icons/control_stop.png'
+      image_tag '/images/stop.png'
     end
   end
 end
