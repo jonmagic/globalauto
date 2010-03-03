@@ -1,0 +1,32 @@
+body {
+  margin:0;
+  padding:0;
+}
+/* toolbar */
+body > div > ul {
+  margin:5px 10px 0 10px;
+  padding:0;
+}
+body > div > ul > li {
+  display:inline;
+  list-style:none;
+}
+body > div > ul > li > span.schedule_for {
+  padding-left:12px;
+  font-weight:bold;
+  font-size:15px;
+}
+/* table */
+body > table {
+  width:100%;
+}
+body > table > thead td {
+  font-weight:bold;
+  font-size:11px;
+}
+body > table td {
+  text-align:center;
+  font-size:10px;
+  border:1px solid #eee;
+}
+td.time {width:4em;background-color:#eee;text-align:center;}

@@ -1,0 +1,12 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title><%= APP_CONFIG[:site_name] %></title>
+    <%= stylesheet_link_tag 'blueprint/screen', 'smoothness/jquery-ui', 'schedule', :media => 'screen' %>
+    <%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
+    <%= javascript_include_tag "jquery", "jquery-ui" %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<div>
+  <ul>
+    <li><a href="/schedule/<%= @day.yesterday.strftime('%m%d%Y') %>" class="ui-state-default ui-button ui-corner-all"><span class="ui-icon ui-icon-carat-1-w"></span></a></li>
+    <li><a href="/schedule/<%= @day.tomorrow.strftime('%m%d%Y') %>" class="ui-state-default ui-button ui-corner-all"><span class="ui-icon ui-icon-carat-1-e"></span></a></li>
+    <li><span class="schedule_for">Schedule for <%= @day.to_time.humanize_date %></span></li>
+  </ul>
+</div>
+<table>
+  <thead>
+    <tr>
+      <td class="time">Time</td>
+      <% @technicians.each do |tech| %>
+        <td style="background-color:<%= tech.color %>;color:<%= tech.font_color %>"><%= tech.name %></td>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @hours.each do |time| %>
+      <tr class="<%= time[:class] %>">
+        <td class="time"><%= time[:digits] %></td>
+        <% @technicians.each do |tech| %>
+          <td class="<%= tech.name.to_class %>"></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

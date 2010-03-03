@@ -26,5 +26,10 @@ class ApplicationController < ActionController::Base
       redirect_to "/"
     end
   end
+end
 
+class String
+  def to_class
+    self.downcase.split(" ").join("_")
+  end
 end

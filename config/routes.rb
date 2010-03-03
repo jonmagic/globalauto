@@ -7,8 +7,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :timers
   
   map.resources :jobs
+  map.resources :schedule
   map.resources :technicians do |technician|
     technician.resources :jobs
+    technician.resources :schedule
   end
   map.resources :jobs do |job|
     job.resources :timers
