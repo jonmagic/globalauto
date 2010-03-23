@@ -5,6 +5,7 @@ $.fn.timecalc = function(insert_selector){
   var hundredths = $(this).find(".hundredths").val()>=0 ? $(this).find(".hundredths").val() : 0;
   // calculate the total time in minutes
   var total_time = hours*1+hundredths/100;
+  console.log(total_time);
   // insert the value into the field defined by .timecalc(options)
   $(insert_selector).val(total_time);
 };

@@ -1,6 +1,10 @@
-<h2 id="edit_job">Editing Job #<% @job.id %></h2>
 <% form_for @job do |form| %>
   <%= render :partial => 'form', :locals => {:form => form} %>
-  <%= form.submit 'Save', :class => 'save hide' %>
+  <table>
+    <tr>
+      <td><b>Technician</b></td>
+      <td><%= form.collection_select :technician_id, @technicians, "id", "name" %></td>
+    </tr>
+  </table>
+  <%= form.submit 'Save' %>
 <% end %>
-<a href="javascript:void(0)" id="save_job">Save</a>

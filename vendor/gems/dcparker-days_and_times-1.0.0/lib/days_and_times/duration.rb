@@ -189,10 +189,10 @@ class Duration
     time - @length
   end
   def from_now
-    self.from(Time.now)
+    self.from(Time.zone.now)
   end
   def ago
-    self.before(Time.now)
+    self.before(Time.zone.now)
   end
   def starting(time)
     self.start_time = time

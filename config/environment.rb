@@ -19,8 +19,9 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  config.gem "sqlite3-ruby", :lib => "sqlite3"
+  # config.gem "sqlite3-ruby", :lib => "sqlite3"
   config.gem "days_and_times"
+  config.gem 'mongo_mapper'
               
   require 'last_day_next_day'
 
@@ -37,7 +38,7 @@ Rails::Initializer.run do |config|
 
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.
-  config.time_zone = 'UTC'
+  config.time_zone = 'Eastern Time (US & Canada)'
 
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]

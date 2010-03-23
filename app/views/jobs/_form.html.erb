@@ -1,10 +1,18 @@
 <%= form.error_messages %>
 <table>
+  <% unless @job.timers.length > 0 %>
+    <tr>
+      <td><b>Scheduled For</b></td>
+      <td>
+        <%= scheduled_for_helper(@job) %>
+      </td>
+    </tr>
+  <% end %>
   <tr>
-    <td><b>Repair Order #</b></td><td><%= form.text_field :ro_number %></td>
+    <td><b>Repair Order #</b></td><td><%= form.text_field :ro %></td>
   </tr>
   <tr>
-    <td><b>Clients Lastname:</b></td><td><%= form.text_field :clients_lastname %></td>
+    <td><b>Clients Lastname:</b></td><td><%= form.text_field :lastname %></td>
   </tr>
   <tr>
     <td><b>Description:</b></td><td><%= form.text_area :description %></td>
@@ -13,8 +21,8 @@
     <td><b>Flat-Rate:</b></td>
     <td>
       <span class="flatrate_time">
-        Hours: <input class="hours" type="text" value="<%= @job.flatrate_time.split('.')[0] unless @job.flatrate_time.blank? %>" />
-        Hundredths: <input class="hundredths" type="text" value="<%= @job.flatrate_time.split('.')[1] unless @job.flatrate_time.blank? %>" />
+        Hours: <input class="hours" type="text" value="<%= @job.flatrate_time.to_s.split('.')[0] unless @job.flatrate_time.blank? %>" />
+        Hundredths: <input class="hundredths" type="text" value="<%= @job.flatrate_time.to_s.split('.')[1] unless @job.flatrate_time.blank? %>" />
         <%= form.hidden_field :flatrate_time %>
       </span>
     </td>
@@ -22,10 +30,18 @@
 </table>
 
 <script>
-  $('.flatrate_time input.hours').bind('change', function(){
+  // setup my time and date picker
+  var date = $('table#schedule').attr('data-date').split(' ')[1];
+  $("#job_scheduled_at_4i option[value='"+TIMECLASS.split('_')[1]+"']").attr('selected', 'selected');
+  $("#job_scheduled_at_5i option[value='"+TIMECLASS.split('_')[2]+"']").attr('selected', 'selected');
+  $("#job_scheduled_at_2i option[value='"+date.split('/')[0]+"']").attr('selected', 'selected');
+  $("#job_scheduled_at_3i option[value='"+date.split('/')[1]+"']").attr('selected', 'selected');
+  $("#job_scheduled_at_1i option[value='"+date.split('/')[2]+"']").attr('selected', 'selected');
+  // read the flatrate boxes and calculate the appropriate time in hundredths
+  $('.flatrate_time input.hours').bind('keyup', function(){
     $(".flatrate_time").timecalc('input#job_flatrate_time');
   });
-  $('.flatrate_time input.hundredths').bind('change', function(){
+  $('.flatrate_time input.hundredths').bind('keyup', function(){
     $(".flatrate_time").timecalc('input#job_flatrate_time');
   });
 </script>

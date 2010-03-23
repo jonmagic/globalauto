@@ -1,9 +1,8 @@
 class Admin::TechniciansController < ApplicationController
-  before_filter :login_required
   layout 'settings'
   
   def index
-    @technicians = Technician.active_techs
+    @technicians = Technician.all(:destroyed_at => nil)
 
     respond_to do |format|
       format.html

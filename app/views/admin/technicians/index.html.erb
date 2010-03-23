@@ -2,7 +2,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Code</th>
       <th>Colors</th>
     </tr>
   </thead>
@@ -11,7 +10,6 @@
     <% for technician in @technicians %>
     <tr>
       <td><a href="/admin/technicians/<%= technician.id %>/edit"><%= h technician.name %></a></td>
-      <td><a href="/admin/technicians/<%= technician.id %>/edit"><%= h technician.code %></a></td>
       <td><a href="/admin/technicians/<%= technician.id %>/edit" style="background-color:<%= technician.color %>;color:<%= technician.font_color %>;"><%= h technician.font_color %> on <%= h technician.color %>.</a></td>
     </tr>
     <% end %>

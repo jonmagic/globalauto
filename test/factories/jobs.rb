@@ -13,6 +13,6 @@ Factory.define :job2, :parent => :job do |f|
   f.ro_number "123456"
   f.description "Replacing a hubcap"
   f.technician_id 1
-  f.completed Time.now - 24.hours
+  f.completed Time.zone.now - 24.hours
   f.clients_lastname "Hoyt"
 end

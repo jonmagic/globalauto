@@ -3,23 +3,24 @@
     <li><a href="/schedule/<%= @day.yesterday.strftime('%m%d%Y') %>" class="ui-state-default ui-button ui-corner-all"><span class="ui-icon ui-icon-carat-1-w"></span></a></li>
     <li><a href="/schedule/<%= @day.tomorrow.strftime('%m%d%Y') %>" class="ui-state-default ui-button ui-corner-all"><span class="ui-icon ui-icon-carat-1-e"></span></a></li>
     <li><span class="schedule_for">Schedule for <%= @day.to_time.humanize_date %></span></li>
+    <li class="spaced"><% if @technicians.length == 1 %><a href="/schedule/<%= @day.strftime('%m%d%Y') %>">back to schedule</a><% end %></li>
   </ul>
 </div>
-<table>
+<table id="schedule" class="date_<%= @day.strftime('%m_%d_%Y')%>" data-date="<%= @day.strftime('08:00:00 %m/%d/%Y')%>">
   <thead>
     <tr>
-      <td class="time">Time</td>
+      <td class="time"></td>
       <% @technicians.each do |tech| %>
-        <td style="background-color:<%= tech.color %>;color:<%= tech.font_color %>"><%= tech.name %></td>
+        <td id="<%= tech.id %>" class="technician" style="background-color:<%= tech.color %>"><%= link_to tech.name, technician_schedule_url(tech), :style => "color:#{tech.font_color}" %></td>
       <% end %>
     </tr>
   </thead>
   <tbody>
     <% @hours.each do |time| %>
       <tr class="<%= time[:class] %>">
-        <td class="time"><%= time[:digits] %></td>
+        <td class="time"><span><%= time[:digits] %></span></td>
         <% @technicians.each do |tech| %>
-          <td class="<%= tech.name.to_class %>"></td>
+          <td data-tech-id="<%= tech.id %>"></td>
         <% end %>
       </tr>
     <% end %>

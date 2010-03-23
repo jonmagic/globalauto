@@ -2,8 +2,8 @@ require File.dirname(__FILE__) + '/spec_helper.rb'
 
 describe Duration do
   it "should be backward-compatible with previous english time statements" do
-    10.minutes.from_now.inspect.should eql((Time.now + 600).inspect)
-    3.days.ago.inspect.should eql((Time.now - 3*24*60*60).inspect)
+    10.minutes.from_now.inspect.should eql((Time.zone.now + 600).inspect)
+    3.days.ago.inspect.should eql((Time.zone.now - 3*24*60*60).inspect)
     # More english statements need to be written!!
   end
 
@@ -14,7 +14,7 @@ describe Duration do
   end
 
   it "should add a duration properly to a Time object" do
-    (Time.now+1.day).inspect.should eql((Time.now+86400).inspect)
+    (Time.zone.now+1.day).inspect.should eql((Time.zone.now+86400).inspect)
   end
 
   it "should properly represent time in string, depending on the unit" do
@@ -45,8 +45,8 @@ describe Duration do
   end
 
   it "should generate durations from numeric and time arguments" do
-    1.week.from(Now()).to_s.should eql((Time.now + 604800).to_s) #=> The time of 1 week from this moment
-    1.week.from(Today()).should eql((Time.now + 604800).beginning_of_day) #=> The time of 1 week from the beginning of today
+    1.week.from(Now()).to_s.should eql((Time.zone.now + 604800).to_s) #=> The time of 1 week from this moment
+    1.week.from(Today()).should eql((Time.zone.now + 604800).beginning_of_day) #=> The time of 1 week from the beginning of today
     3.minutes.ago.until(7.minutes.from(Now())).should === Duration.new(10, 60) #=> duration 3 minutes ago to 7 minutes from now
     4.weeks.from(2.days.from(Now())).until(8.weeks.from(Yesterday())) #=> A duration, starting in 4 weeks and 2 days, and ending 8 weeks from yesterday
   end

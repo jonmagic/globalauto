@@ -4,9 +4,10 @@
     <title><%= APP_CONFIG[:site_name] %></title>
     <%= stylesheet_link_tag 'blueprint/screen', 'smoothness/jquery-ui', 'schedule', :media => 'screen' %>
     <%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
-    <%= javascript_include_tag "jquery", "jquery-ui" %>
+    <%= javascript_include_tag "jquery", "jquery-ui", "jquery.form", "jquery.timecalc", "underscore", "date", "time", "schedule" %>
   </head>
   <body>
     <%= yield %>
+    <div id="dialog"></div>
   </body>
 </html>

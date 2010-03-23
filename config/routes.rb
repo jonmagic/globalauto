@@ -7,15 +7,19 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :timers
   
   map.resources :jobs
-  map.resources :schedule
+  map.resources :schedule do |day|
+    day.resources :jobs
+  end
   map.resources :technicians do |technician|
     technician.resources :jobs
-    technician.resources :schedule
+    technician.resources :schedule do |day|
+      day.resources :jobs
+    end
   end
   map.resources :jobs do |job|
     job.resources :timers
   end
-  
+
   map.namespace(:admin) do |admin|
     admin.resources :technicians
     admin.resources :settings
@@ -24,7 +28,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.delete_jobs 'delete_jobs', :controller => 'jobs', :action => 'delete_jobs'
   end
     
-  map.root :controller => 'jobs', :action => 'index'
+  map.root :controller => 'schedule', :action => 'index'
   
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

@@ -27,7 +27,7 @@ class Time
     self.strftime("%B")
   end
 
-  # Seconds since midnight: Time.now.seconds_since_midnight
+  # Seconds since midnight: Time.zone.now.seconds_since_midnight
   def seconds_since_midnight
     self.to_i - self.change(:hour => 0).to_i + (self.usec/1.0e+6)
   end
@@ -46,7 +46,7 @@ class Time
   def self.time_with_datetime_fallback(utc_or_local, year, month=1, day=1, hour=0, min=0, sec=0, usec=0)
     ::Time.send(utc_or_local, year, month, day, hour, min, sec, usec)
   rescue
-    offset = if utc_or_local.to_sym == :utc then 0 else ::DateTime.now.offset end
+    offset = if utc_or_local.to_sym == :utc then 0 else ::DateTime.zone.now.offset end
     ::DateTime.civil(year, month, day, hour, min, sec, offset, 0)
   end
 
@@ -61,19 +61,19 @@ class Time
   end
 
   def self.tomorrow
-    Time.now.beginning_of_day + 1.day
+    Time.zone.now.beginning_of_day + 1.day
   end
   def tomorrow
     self.beginning_of_day + 1.day
   end
   def self.yesterday
-    Time.now.beginning_of_day - 1.day
+    Time.zone.now.beginning_of_day - 1.day
   end
   def yesterday
     self.beginning_of_day - 1.day
   end
   def self.today
-    Time.now.beginning_of_day
+    Time.zone.now.beginning_of_day
   end
   def self.next_month
     today.change(:day => 1, :month => today.month + 1)
@@ -133,5 +133,5 @@ def Tomorrow
   Time.tomorrow
 end
 def Now
-  Time.now
+  Time.zone.now
 end
