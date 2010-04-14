@@ -27,15 +27,14 @@ class Timer
   end
 
   def running?
-    self.end_time == nil
+    self.end_time.blank?
   end
 
   def self.convert_time(time)
-    time < 0 ? positive = false : positive = true
-    new_time = time.abs
-    new_time = new_time.to_i
-    hours = (new_time/60)
-    minutes = (new_time - hours*60)
+    positive = time < 0 ? false : true
+    new_time = (time.abs).to_i
+    hours = new_time/60
+    minutes = new_time - hours*60
     if minutes >= 10
       minutes = minutes.to_s
     else

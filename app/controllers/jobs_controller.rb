@@ -5,15 +5,15 @@ class JobsController < ApplicationController
     conditions = {}
     if params[:schedule_id]
       beginning_of_day = (params["schedule_id"][0..1]+"/"+params["schedule_id"][2..3]+"/"+params["schedule_id"][4..7]).to_date.beginning_of_day
-      conditions[:scheduled_at] = { '$gt' => beginning_of_day, '$lt' => beginning_of_day+23.99.hours }
+      conditions[:scheduled_at] = { '$gt' => beginning_of_day - 24.hours, '$lt' => beginning_of_day+23.99.hours + 24.hours }
     end
     conditions[:technician_id] = params[:technician_id] if params[:technician_id]
     @jobs = Job.all(conditions.merge(:completed_at => nil))
-    render :json => @jobs.to_json
+    render :json => @jobs.to_json(:methods => [:status])
   end
 
   def show
-
+    @job = Job.find(params[:id])
   end
 
   def new

@@ -20,8 +20,9 @@ Rails::Initializer.run do |config|
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
-  config.gem "days_and_times"
+  config.gem 'days_and_times'
   config.gem 'mongo_mapper'
+  config.gem 'state_machine'
               
   require 'last_day_next_day'
 

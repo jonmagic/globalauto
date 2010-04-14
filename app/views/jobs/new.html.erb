@@ -2,3 +2,13 @@
   <%= render :partial => 'form', :locals => {:form => form} %>
   <%= form.submit 'Save' %>
 <% end %>
+
+<script>
+  // setup my time and date picker
+  var date = $('table#schedule').attr('data-date').split(' ')[1];
+  $("#job_scheduled_at_4i option[value='"+TIMECLASS.split('_')[1]+"']").attr('selected', 'selected');
+  $("#job_scheduled_at_5i option[value='"+TIMECLASS.split('_')[2]+"']").attr('selected', 'selected');
+  $("#job_scheduled_at_2i option[value='"+date.split('/')[0]+"']").attr('selected', 'selected');
+  $("#job_scheduled_at_3i option[value='"+date.split('/')[1]+"']").attr('selected', 'selected');
+  $("#job_scheduled_at_1i option[value='"+date.split('/')[2]+"']").attr('selected', 'selected');
+</script>

@@ -14,52 +14,58 @@ class Job
 
   belongs_to :technician
 
-  after_update :stop_timers_if_completed
-
-  def stop_timers_if_completed
-    if self.completed_at != nil
-      self.timers.each do |timer|
-        if timer.end_time == nil
-          timer.update_attributes(:end_time => Time.zone.now)
-        end
-      end
-    end
-  end
-
-  def self.active_jobs
-    all(:completed_at => nil)
-  end
-
-  def status
-    key = 0
-    self.timers.each do |timer|
-      if timer.running
-        key += 1
-      end
-    end
-    if key > 0
-      return "Running"
-    else
-      return "Stopped"
-    end
-  end
-
-  def has_had_a_timer?
-    self.timers.length > 0
-  end
-
-  def last_timer
-    self.timers.last
-  end
-
-  def recorded_time_helper
-    time = 0
-    self.timers.each do |timer|
-      time += timer.interval
-    end
-    return (time.seconds.hours*100).to_i.to_f/100
-  end
+  # after_update :stop_timers_if_completed
   # 
+  # def stop_timers_if_completed
+  #   if self.completed_at != nil
+  #     self.timers.each do |timer|
+  #       if timer.end_time == nil
+  #         timer.update_attributes(:end_time => Time.zone.now)
+  #       end
+  #     end
+  #   end
+  # end
+  
+  # def self.active_jobs
+  #   all(:completed_at => nil)
+  # end
+
+  # def status
+  #   if self.timers.length == 0
+  #     "New"
+  #   elsif self.completed_at.blank?
+  #     key = 0
+  #     self.timers.each do |timer|
+  #       if timer.running
+  #         key += 1
+  #       end
+  #     end
+  #     if key > 0
+  #       return "Running"
+  #     else
+  #       return "Stopped"
+  #     end
+  #   else
+  #     return "Completed"
+  #   end
+  # end
+
+  # def has_had_a_timer?
+  #   self.timers.length > 0
+  # end
+
+  # def last_timer
+  #   self.timers.last
+  # end
+
+  # def recorded_time_helper
+  #   time = 0
+  #   self.timers.each do |timer|
+  #     time += timer.interval
+  #   end
+  #   return (time.seconds.hours*100).to_i.to_f/100
+  # end
+  
   # def difference
   #   self.recorded_time.to_f - (self.flatrate_time.to_f + self.extra_time.to_f)
   # end

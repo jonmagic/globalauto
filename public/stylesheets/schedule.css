@@ -30,6 +30,7 @@ body > table > thead td {
 }
 body > table > thead td a {
   text-decoration:none;
+  display:block;
 }
 body > table td {
   text-align:center;
@@ -44,6 +45,9 @@ td.time span {position:relative;top:-1.1em;left:0.3em;}
 /* job on calendar */
 div.job, div.timer {
   position:absolute;
+  top:-1000px;
+  left:-1000px;
+  z-index:55;
   background-color:#eee;
   border-radius:6px;
   -moz-border-radius:6px;
@@ -61,16 +65,18 @@ div.job h2, div.timer h2 {
 div.job h2 span, div.timer h2 span {
   position:absolute;
   top:0px;
-  right:10px;
+  right:20px;
+}
+div.job h2 span.ui-icon {
+  position:absolute;
+  top:1px;
+  right:2px;
 }
 div.job p, div.timer p {
+  display:block;
+  height:100%;
   padding-left:10px;
   padding-right:20px;
-}
-div.job span.ui-icon {
-  position:absolute;
-  right:2px;
-  bottom:2px;
 }
 
 /* dialog */
