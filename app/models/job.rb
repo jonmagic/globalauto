@@ -14,105 +14,46 @@ class Job
 
   belongs_to :technician
 
-  # after_update :stop_timers_if_completed
-  # 
-  # def stop_timers_if_completed
-  #   if self.completed_at != nil
-  #     self.timers.each do |timer|
-  #       if timer.end_time == nil
-  #         timer.update_attributes(:end_time => Time.zone.now)
-  #       end
-  #     end
-  #   end
-  # end
+  state_machine :state, :initial => :scheduled do
+    
+    before_transition any => :in_progress do |job|
+      job.timers << Timer.new(:start_time => Time.now)
+    end
+    
+    before_transition :in_progress => [:pause, :complete] do |job|
+      job.timers.last.update_attributes(:end_time => Time.now)
+    end
+    
+    before_transition any => :complete do |job|
+      job.completed_at = Time.now
+    end
+    
+    event :arrived do
+      transition :scheduled => :here
+    end
+    
+    event :no_show do
+      transition :scheduled => :no_show
+    end
+    
+    event :toggle do
+      transition :here => :in_progress, :in_progress => :pause, :pause => :in_progress
+    end
+    
+    event :complete do
+      transition :in_progress => :complete, :pause => :complete
+    end
+  end
   
-  # def self.active_jobs
-  #   all(:completed_at => nil)
-  # end
-
-  # def status
-  #   if self.timers.length == 0
-  #     "New"
-  #   elsif self.completed_at.blank?
-  #     key = 0
-  #     self.timers.each do |timer|
-  #       if timer.running
-  #         key += 1
-  #       end
-  #     end
-  #     if key > 0
-  #       return "Running"
-  #     else
-  #       return "Stopped"
-  #     end
-  #   else
-  #     return "Completed"
-  #   end
-  # end
-
-  # def has_had_a_timer?
-  #   self.timers.length > 0
-  # end
-
-  # def last_timer
-  #   self.timers.last
-  # end
-
-  # def recorded_time_helper
-  #   time = 0
-  #   self.timers.each do |timer|
-  #     time += timer.interval
-  #   end
-  #   return (time.seconds.hours*100).to_i.to_f/100
-  # end
+  def recorded_time_helper
+    recorded = 0
+    self.timers.each do |t|
+      unless t.start_time.blank?
+        time = t.end_time.blank? ? Time.now - t.start_time : t.end_time - t.start_time
+        recorded += time.round.seconds.hours
+      end
+    end
+    return recorded
+  end
   
-  # def difference
-  #   self.recorded_time.to_f - (self.flatrate_time.to_f + self.extra_time.to_f)
-  # end
-
-  # def self.totals
-  #   past = Date.today - 100.years
-  #   future = Date.today + 100.years
-  #   totals = {}
-  # 
-  #   open = {:completed => nil}
-  #   totals[:open]    = (self.all(:conditions => open)).length
-  # 
-  #   completed = {:completed => past..future, :flatrate_time => ""}
-  #   totals[:completed]  = (self.all(:conditions => completed)).length
-  # 
-  #   recorded = find :all do
-  #     all do
-  #       flatrate_time >= 0
-  #       # completed.not.nil?
-  #     end
-  #   end
-  #   totals[:recorded] = recorded.length
-  #   return totals
-  # end
-
-  # def self.limit(status, technician_id="all")
-  #   past = Date.today - 100.years
-  #   future = Date.today + 100.years
-  #   find :all do
-  #     all do
-  #       if status == nil || status == "completed"
-  #         completed <=> (past..future)
-  #         flatrate_time  == ""
-  #       elsif status == "open"
-  #         completed == nil
-  #       elsif status == "recorded"
-  #         flatrate_time >= 0
-  #         completed.not.nil?
-  #       end
-  #     end
-  #   end
-  # end
-  # 
-  # def self.first_completed_job
-  #   past = Date.today - 100.years
-  #   future = Date.today + 100.years
-  #   self.first(:conditions => {:completed => past..future, :flatrate_time => ""})
-  # end
-
 end

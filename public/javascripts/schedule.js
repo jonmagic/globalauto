@@ -28,6 +28,7 @@ var Jobs = {
 var Job = {
   draw: function(job){
     if(job.timers.length > 0){
+      $('#'+job.id).remove();
       $.each(job.timers, function(){Timer.draw(this, job)});
     }else{
       // setup box dimensions
@@ -45,15 +46,12 @@ var Job = {
         dimensions.height = (BOTTOM + $('tr.time_05_30 td').height() + 4) - dimensions.top;
       }else if(dimensions.top < 0 && (dimensions.top + 1435*pixelsPerMinute + dimensions.height) > (BOTTOM + $('tr.time_05_30 td').height() + 4)){
         dimensions.height = (dimensions.top + 1440*pixelsPerMinute + dimensions.height) - (BOTTOM + $('tr.time_05_30 td').height() + 8);
-        console.log(dimensions.height);
         if(dimensions.height < 40){
           dimensions.height = 40;
         };
         dimensions.top = $('tr.time_08_00 td').offset().top;
       }
-      // setup box color
-      // if(job.status=="")
-      box.css({left: dimensions.left, top: dimensions.top, height: dimensions.height, width: $('td#'+job.technician_id).outerWidth() - 4});
+      box.css({left: dimensions.left, top: dimensions.top, height: dimensions.height, width: $('td#'+job.technician_id).outerWidth() - 4, backgroundColor: Job.state_color(job.state)});
     };
   },
   compose: function(tech_id){
@@ -98,8 +96,103 @@ var Job = {
     DIALOG.empty();
     DIALOG.dialog('option', 'buttons', {});
     DIALOG.load('/jobs/'+job_id, function(){
+      if      (DIALOG.find('table.job').attr('data-state')==='scheduled'){
+        DIALOG.dialog('option', 'buttons', {
+          "No Show": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/no_show',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          },
+          "Arrived": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/arrived',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          }
+        });
+      }else if(DIALOG.find('table.job').attr('data-state')==='here'){
+        DIALOG.dialog('option', 'buttons', {
+          "Start": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/toggle',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          }
+        });
+      }else if(DIALOG.find('table.job').attr('data-state')==='no_show'){
+        console.log('no show')
+      }else if(DIALOG.find('table.job').attr('data-state')==='in_progress'){
+        DIALOG.dialog('option', 'buttons', {
+          "Stop": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/toggle',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          },
+          "Complete": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/complete',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          }
+        });
+      }else if(DIALOG.find('table.job').attr('data-state')==='pause'){
+        DIALOG.dialog('option', 'buttons', {
+          "Start": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/toggle',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          },
+          "Complete": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/complete',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          }
+        });
+      }else if(DIALOG.find('table.job').attr('data-state')==='complete'){
+        console.log('complete')
+      }
       DIALOG.dialog('open');
     });
+  },
+  state_color: function(state){
+    if      (state==='scheduled'){
+      return '#EEEEEE';
+    }else if(state==='here'){
+      return '#FFFF99';
+    }else if(state==='no_show'){
+      return '#800000';
+    }else if(state==='in_progress'){
+      return '#FFCC00';
+    }else if(state==='pause'){
+      return '#FFFF99';
+    }else if(state==='complete'){
+      return '#969696';
+    }
   }
 };
 var Timer = {
@@ -110,11 +203,14 @@ var Timer = {
       var difference = (new Date().getTime() - Parse.dateTimeString(timer.start_time).getTime())/1000/60;
     }
     var dimensions = Dimensions.calculate(timer.start_time, difference, job.technician_id);
+    if((dimensions.top + dimensions.height) > (BOTTOM + $('tr.time_05_30 td').height() + 4) && dimensions.top > 0){
+      dimensions.height = (BOTTOM + $('tr.time_05_30 td').height() + 4) - dimensions.top;
+    }
     if($('div#'+timer.id).length == 0){
-      $('body').append('<div class="timer" id="'+timer.id+'" data-ro="'+job.ro+'"><h2>RO# '+job.ro+'<span>'+job.lastname+'</span></h2><p>'+job.description+'</p></div>');
+      $('body').append('<div class="timer" id="'+timer.id+'" data-job-id="'+job.id+'" data-ro="'+job.ro+'"><h2>RO# '+job.ro+'<span>'+job.lastname+'</span></h2><p>'+job.description+'</p></div>');
     }
     var box = $('#'+timer.id);
-    box.css({left: dimensions.left, top: dimensions.top, height: dimensions.height, width: $('td#'+job.technician_id).outerWidth() - 4});
+    box.css({left: dimensions.left, top: dimensions.top, height: dimensions.height, width: $('td#'+job.technician_id).outerWidth() - 4, backgroundColor: Job.state_color(job.state)});
   }
 };
 var Dimensions = {
@@ -163,19 +259,23 @@ $(function(){
     , modal: true
     , width: 600
   });
-  // new job setup
+  // new job
   $('#schedule tbody td').live('click', function(){
     TIMECLASS = $(this).parent().attr('class');
     Job.compose($(this).attr('data-tech-id'));
   });
-  // edit job setup
+  // edit job
   $('div.job h2').live("click", function(){
     DIALOG.dialog('option', 'title', 'RO# '+$(this).parent().attr('data-ro'));
     Job.edit($(this).parent().attr('id'));
   });
-  // show job setup
+  // show job
   $('div.job p').live("click", function(){
     DIALOG.dialog('option', 'title', 'RO# '+$(this).parent().attr('data-ro'));
     Job.show($(this).parent().attr('id'));
+  });
+  $('div.timer').live("click", function(){
+    DIALOG.dialog('option', 'title', 'RO# '+$(this).attr('data-ro'));
+    Job.show($(this).attr('data-job-id'));
   });
 });

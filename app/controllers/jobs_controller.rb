@@ -8,7 +8,7 @@ class JobsController < ApplicationController
       conditions[:scheduled_at] = { '$gt' => beginning_of_day - 24.hours, '$lt' => beginning_of_day+23.99.hours + 24.hours }
     end
     conditions[:technician_id] = params[:technician_id] if params[:technician_id]
-    @jobs = Job.all(conditions.merge(:completed_at => nil))
+    @jobs = Job.all(conditions)
     render :json => @jobs.to_json(:methods => [:status])
   end
 
@@ -45,7 +45,27 @@ class JobsController < ApplicationController
     end
   end
 
-  def destroy
-
+  def arrived
+    @job = Job.find(params[:id])
+    @job.arrived
+    render :nothing => true, :layout => false, :response => 200
+  end
+  
+  def no_show
+    @job = Job.find(params[:id])
+    @job.no_show
+    render :nothing => true, :layout => false, :response => 200
+  end
+  
+  def toggle
+    @job = Job.find(params[:id])
+    @job.toggle
+    render :nothing => true, :layout => false, :response => 200
+  end
+  
+  def complete
+    @job = Job.find(params[:id])
+    @job.complete
+    render :nothing => true, :layout => false, :response => 200
   end
 end

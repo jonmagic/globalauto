@@ -54,6 +54,7 @@ div.job, div.timer {
   -webkit-border-radius:6px;
   border:1px solid #bbb;
   overflow:hidden;
+  min-height:18px;
 }
 div.job h2, div.timer h2 {
   margin:0;

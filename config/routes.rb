@@ -6,6 +6,10 @@ ActionController::Routing::Routes.draw do |map|
   map.report_time_sheet "/admin/reports/time_sheet", :controller => 'admin/reports', :action => 'time_sheet'
   map.resources :timers
   
+  map.job_arrived   '/jobs/:id/arrived',  :controller => 'jobs', :action => 'arrived'
+  map.job_noshow    '/jobs/:id/no_show',  :controller => 'jobs', :action => 'no_show'
+  map.job_toggle    '/jobs/:id/toggle',   :controller => 'jobs', :action => 'toggle'
+  map.job_complete  '/jobs/:id/complete', :controller => 'jobs', :action => 'complete'
   map.resources :jobs
   map.resources :schedule do |day|
     day.resources :jobs
