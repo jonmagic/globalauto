@@ -2,11 +2,12 @@ class Job
   include MongoMapper::Document
   include MultiParameterAttributes
   
-  key :ro, Integer, :required => true, :unique => true
-  key :description, String, :required => true
+  key :ro, Integer
   key :lastname, String, :required => true
+  key :vehicle, String
+  key :description, String
   key :flatrate_time, Float
-  key :extra_time, Integer
+  key :extra_time, Float
   key :technician_id, ObjectId, :required => true
   key :scheduled_at, Time
   key :completed_at, Time
@@ -26,6 +27,10 @@ class Job
     
     before_transition any => :complete do |job|
       job.completed_at = Time.now
+    end
+    
+    before_transition :scheduled => :no_show do |job|
+      job.flatrate_time = 0.45
     end
     
     event :arrived do
@@ -53,7 +58,25 @@ class Job
         recorded += time.round.seconds.hours
       end
     end
-    return recorded
+    return (recorded*100).to_i.to_f/100
+  end
+  
+  def difference
+    self.recorded_time_helper.to_f - (self.flatrate_time.to_f + self.extra_time.to_f)
+  end
+  
+  def self.limit(status)
+    array = []
+    if status == "open"
+      Job.all(:state => "arrived").each {|j| array << j}
+      Job.all(:state => "in_progress").each {|j| array << j}
+      Job.all(:state => "pause").each {|j| array << j}
+    elsif status == "completed"
+      Job.all(:state => "complete", :flatrate_time => nil).each {|j| array << j}
+    elsif status == "recorded"
+      Job.all(:state => "complete", :flatrate_time => {'$gt' => 0.0}).each {|j| array << j}
+    end
+    return array
   end
   
 end

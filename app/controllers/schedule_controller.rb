@@ -5,8 +5,8 @@ class ScheduleController < ApplicationController
   end
   
   def show
-    @day = (params["id"][0..1]+"/"+params["id"][2..3]+"/"+params["id"][4..7]).to_date
-    @technicians = params[:technician_id] ? Technician.find(params[:technician_id]).to_a : Technician.all
+    @day = (params["id"][4..7]+"-"+params["id"][0..1]+"-"+params["id"][2..3]).to_date
+    @technicians = params[:technician_id] ? [Technician.find(params[:technician_id])] : Technician.all
     @hours = []
     ["08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", 
     "11:30", "12:00", "12:30", "01:00", "01:30", "02:00", "02:30", 

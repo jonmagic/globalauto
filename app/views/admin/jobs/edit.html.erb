@@ -1,11 +1,11 @@
 <div id="job" job_id="<%= @job.id %>">
   <h2>Job# <%= @job.id %>, Technician: <%= @job.technician.name %></h2>
-  <h3>RO# <%= @job.ro_number %></h3>
-  <h3>Lastname: <%= @job.clients_lastname %></h3>
+  <h3>RO# <%= @job.ro %></h3>
+  <h3>Lastname: <%= @job.lastname %></h3>
   <% form_for [:admin, @job] do |f| %>
     <h4>Description:</h4>
     <p><%= @job.description %></p>
-    <h4>Total Time Logged: <%= @job.recorded_time.to_i.to_f/100 %></h4>
+    <h4>Total Time Logged: <%= @job.recorded_time_helper %></h4>
     <h4>Flat-rate Time</h4>
     <p class="flatrate_time">Hours: <input class="hours" type="text" value="<%= time_hours_helper(@job.flatrate_time) %>" /> Hundredths: <input class="hundredths" type="text" value="<%= time_minutes_helper(@job.flatrate_time) %>" /></p>
     <%= f.hidden_field :flatrate_time %>

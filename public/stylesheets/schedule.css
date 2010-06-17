@@ -14,7 +14,7 @@ body > div > ul > li {
 body > div > ul > li > span.schedule_for {
   padding-left:12px;
   font-weight:bold;
-  font-size:15px;
+  font-size:20px;
 }
 body > div > ul > li.spaced {
   margin-left:1em;
@@ -47,7 +47,7 @@ div.job, div.timer {
   position:absolute;
   top:-1000px;
   left:-1000px;
-  z-index:55;
+  z-index:10;
   background-color:#eee;
   border-radius:6px;
   -moz-border-radius:6px;
@@ -84,3 +84,5 @@ div.job p, div.timer p {
 #dialog textarea {height:4em;}
 #dialog input[type='submit'] {display:none;}
 #dialog input.hours, #dialog input.hundredths, #dialog input#time_year {width:4em;}
+
+/* calendar */

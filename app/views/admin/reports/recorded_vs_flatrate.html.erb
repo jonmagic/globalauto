@@ -20,7 +20,6 @@
 <table class="itu" >
   <thead>
     <tr>
-      <th class="first">Id</th>
       <th>RO #</th>
       <th>Technician</th>
       <th>Recorded</th>
@@ -32,11 +31,10 @@
   </thead>
   <tbody>
     <% @jobs.each do |job|  %>
-      <tr class="job" alt="<%= job.description %>" status="<%= status_helper(job) %>">
-        <td class="fake_link_padding"><%= job.id %></td>
-        <td class="fake_link_padding"><%= job.ro_number %></td>
+      <tr class="job" alt="<%= job.description %>" status="<%= job.state %>">
+        <td class="fake_link_padding"><%= job.ro %></td>
         <td class="fake_link_padding"><%= job.technician.name %></td>
-        <td class="fake_link_padding"><%= job.recorded_time %></td>
+        <td class="fake_link_padding"><%= job.recorded_time_helper %></td>
         <td class="fake_link_padding"><%= job.flatrate_time %></td>
         <td class="fake_link_padding"><%= job.extra_time %></td>
         <td class="fake_link_padding"><%= job.difference %></td>
@@ -49,7 +47,11 @@
 <script>
   $(document).ready(function() {
     // create datepicker widget
-    $("#start_date").datepicker();
-    $("#end_date").datepicker();
+    $("#start_date").datepicker({
+      dateFormat: '20y-mm-dd'
+    });
+    $("#end_date").datepicker({
+      dateFormat: '20y-mm-dd'
+    });
 	});
 </script>

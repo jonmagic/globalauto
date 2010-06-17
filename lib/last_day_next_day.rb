@@ -34,10 +34,10 @@ class LastDayNextDay
     }
     today_integer = Date.today.cwday
     next_day_integer = days[day]
-    if next_day_integer > today_integer
+    if next_day_integer < today_integer
       difference = next_day_integer - today_integer
     elsif next_day_integer == today_integer
-      difference = 7
+      difference = 0
     else
       difference = next_day_integer + 7 - today_integer
     end

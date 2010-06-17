@@ -88,29 +88,24 @@ class Admin::JobsController < ApplicationController
   
   def delete_jobs
     # find all the jobs between my start and end date
-    @jobs = Job.find(:all) do
-      created_at >= params[:start_date].to_date
-      created_at <= params[:end_date].to_date
-    end
+    @jobs = Job.all(:created_at => {
+      '$gt' => params[:start_date].to_date,
+      '$lt' => params[:end_date].to_date
+    })    
     if @jobs.length > 0
       # delete each job
       @jobs.each { |job| job.destroy }
-      # search for jobs in that date range again
-      @jobs = Job.find(:all) do
-        created_at >= params[:start_date].to_date
-        created_at <= params[:end_date].to_date
-      end
       # if there are still jobs return failure, otherwise success
       if @jobs.length == 0
         flash[:notice] = "Jobs deleted successfully!"
-        redirect_to '/admin/jobs'
+        redirect_to '/admin/jobs/?status=completed'
       else
         flash[:notice] = "Not all jobs could be deleted :-("
-        redirect_to '/admin/jobs'
+        redirect_to '/admin/jobs/?status=completed'
       end
     else
       flash[:notice] = "There were no jobs to delete in that date range."
-      redirect_to '/admin/jobs'
+      redirect_to '/admin/jobs/?status=completed'
     end
   end
   

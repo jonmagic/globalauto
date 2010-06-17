@@ -38,7 +38,11 @@ var Job = {
         var difference = 60;
       }
       if($('div#'+job.id).length == 0){
-        $('body').append('<div class="job" id="'+job.id+'" data-ro="'+job.ro+'"><h2>RO# '+job.ro+'<span>'+job.lastname+'</span><span class="ui-icon ui-icon-pencil"></span></h2><p>'+job.description+'</p></div>');
+        var ref = 'RO# '+job.ro;
+        if (job.ro === null && job.vehicle !== null){
+          ref = job.vehicle;
+        }
+        $('body').append('<div class="job" id="'+job.id+'" data-ro="'+job.ro+'"><h2>'+job.lastname+'<span>'+ref+'</span><span class="ui-icon ui-icon-pencil"></span></h2><p>'+job.description+'</p></div>');
       }
       var box = $('#'+job.id);
       var dimensions = Dimensions.calculate(job.scheduled_at, difference, job.technician_id);
@@ -51,6 +55,7 @@ var Job = {
         };
         dimensions.top = $('tr.time_08_00 td').offset().top;
       }
+      console.log(job.id)
       box.css({left: dimensions.left, top: dimensions.top, height: dimensions.height, width: $('td#'+job.technician_id).outerWidth() - 4, backgroundColor: Job.state_color(job.state)});
     };
   },
@@ -236,11 +241,28 @@ var Dimensions = {
     var top = start_minutes*pixelsPerMinute + $('tr.time_08_00').offset().top;
     var height = difference*pixelsPerMinute;
     var left = $('td#'+technician_id).offset().left + 1;
+    console.log(top);
     return {'top':top,'left':left,'height':height};
   }
 };
 // everything that gets initiated on load
 $(function(){
+  // datepicker
+  $('input#calendar').datepicker({
+    buttonImage: '/images/icons/calendar.png',
+    buttonImageOnly: true,
+    constrainInput: true,
+    dateFormat: 'mmdd20y',
+    duration: 'fast',
+    showButtonPanel: false,
+    showOn: 'button',
+    beforeShow: function(input, inst){
+      setTimeout(function(){$('#ui-datepicker-div').css('z-index', 9999)}, 100);
+    },
+    onSelect: function(date, inst){
+      document.location.href = '/schedule/'+date;
+    }
+  });
   // figure out pixels/minute
   pixelsPerMinute = Dimensions.pixelsPerMinute();
   // get & draw the jobs

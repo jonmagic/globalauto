@@ -36,8 +36,8 @@
           <% if tech["Counter"] == 0 %>
             <td rowspan="<%= tech["Jobs"].length + 1 %>"><%= tech["Name"] %></td>
           <% end %>
-          <td><%= job.ro_number %></td>
-          <td><%= job.recorded_time %></td>
+          <td><%= job.ro %></td>
+          <td><%= job.recorded_time_helper %></td>
           <td><%= job.flatrate_time %></td>
           <td><%= job.extra_time %></td>
         </tr>
@@ -57,7 +57,11 @@
 <script>
   $(document).ready(function() {
     // create datepicker widget
-    $("#start_date").datepicker();
-    $("#end_date").datepicker();
-	});
+    $("#start_date").datepicker({
+      dateFormat: '20y-mm-dd'
+    });
+    $("#end_date").datepicker({
+      dateFormat: '20y-mm-dd'
+    });
+  });
 </script>

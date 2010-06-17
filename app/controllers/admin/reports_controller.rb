@@ -18,13 +18,11 @@ class Admin::ReportsController < ApplicationController
     if params[:technician_id] == 'all' then params[:technician_id] = nil end
     
     # run my search
-    @jobs = Job.find :all do
-      all do
-        completed <=> (start_date..end_date)
-        technician_id == params[:technician_id] unless params[:technician_id] == nil
-        flatrate_time > 0
-      end
-    end
+    conditions = {}
+    conditions[:completed_at] = {'$gt' => start_date.to_time, '$lt' => end_date.to_time}
+    conditions[:technician_id] = params[:technician_id] unless params[:technician_id].blank?
+    conditions[:flatrate_time] = {'$gt' => 0.0}
+    @jobs = Job.all(conditions)
 
     # used to create a running differential
     @runningdiff = []
@@ -44,13 +42,11 @@ class Admin::ReportsController < ApplicationController
     if params[:technician_id] == 'all' then params[:technician_id] = nil end
     
     # run my search
-    jobs = Job.find :all do
-      all do
-        completed <=> (start_date..end_date)
-        technician_id == params[:technician_id] unless params[:technician_id] == nil
-        flatrate_time > 0
-      end
-    end
+    conditions = {}
+    conditions[:completed_at] = {'$gt' => start_date.to_time, '$lt' => end_date.to_time}
+    conditions[:technician_id] = params[:technician_id] unless params[:technician_id].blank?
+    conditions[:flatrate_time] = {'$gt' => 0.0}
+    jobs = Job.all(conditions)
     
     # setup my hash
     rows = Hash.new {|h,k| h[k] = { "row" => (k) }}
@@ -69,7 +65,7 @@ class Admin::ReportsController < ApplicationController
     
     jobs.each do |job|
       rows[job.technician_id]["Jobs"] << job
-      rows[job.technician_id]["Totals"]["Recorded"] += job.recorded_time.to_f
+      rows[job.technician_id]["Totals"]["Recorded"] += job.recorded_time_helper.to_f
       rows[job.technician_id]["Totals"]["Flatrate"] += job.flatrate_time.to_f
       rows[job.technician_id]["Totals"]["Extra"] += job.extra_time.to_f
     end
