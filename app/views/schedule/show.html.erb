@@ -6,7 +6,7 @@
     <li class="spaced"><% if @technicians.length == 1 %><a href="/schedule/<%= @day.strftime('%m%d%Y') %>">back to schedule</a><% end %></li>
   </ul>
 </div>
-<table id="schedule" class="date_<%= @day.strftime('%m_%d_%Y')%>" data-date="<%= @day.strftime('08:00:00 %m/%d/%Y')%>">
+<table id="schedule" class="date_<%= @day.strftime('%m_%d_%Y')%>" data-date="<%= @day.strftime('08:00:00 %m/%d/%Y')%>" data-view-type="<%= request.env['PATH_INFO'].split('/')[1] == "schedule" ? "manager" : "technician" %>">
   <thead>
     <tr>
       <td class="time"></td>
@@ -17,7 +17,7 @@
   </thead>
   <tbody>
     <% @hours.each do |time| %>
-      <tr class="<%= time[:class] %>">
+      <tr class="<%= time[:class] %>" data-time="<%= time[:t24] %>">
         <td class="time"><span><%= time[:digits] %></span></td>
         <% @technicians.each do |tech| %>
           <td data-tech-id="<%= tech.id %>"></td>

@@ -65,6 +65,15 @@ class Job
     self.recorded_time_helper.to_f - (self.flatrate_time.to_f + self.extra_time.to_f)
   end
   
+  def lunch
+    job = self
+    lunchtime = job.scheduled_at.midnight + 12.hours
+    if job.scheduled_at < lunchtime && job.scheduled_at + (job.flatrate_time * 1.hours) > lunchtime
+      return true
+    end
+    false
+  end
+  
   def self.limit(status)
     array = []
     if status == "open"

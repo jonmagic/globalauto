@@ -4,12 +4,12 @@ class JobsController < ApplicationController
   def index
     conditions = {}
     if params[:schedule_id]
-      beginning_of_day = (params["schedule_id"][0..1]+"/"+params["schedule_id"][2..3]+"/"+params["schedule_id"][4..7]).to_date.beginning_of_day
+      beginning_of_day = (params["schedule_id"][4..7]+"-"+params["schedule_id"][0..1]+"-"+params["schedule_id"][2..3]).to_date.beginning_of_day
       conditions[:scheduled_at] = { '$gt' => beginning_of_day - 24.hours, '$lt' => beginning_of_day+23.99.hours + 24.hours }
     end
     conditions[:technician_id] = params[:technician_id] if params[:technician_id]
     @jobs = Job.all(conditions)
-    render :json => @jobs.to_json(:methods => [:status])
+    render :json => @jobs.to_json(:methods => [:lunch])
   end
 
   def show
@@ -27,7 +27,7 @@ class JobsController < ApplicationController
     if @job.save
       render :nothing => true, :layout => false, :response => 200
     else
-      render :nothing => true, :layout => false, :response => 500
+      render :json => @job.errors.to_json, :layout => false, :response => 500
     end
   end
 

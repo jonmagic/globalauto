@@ -41,6 +41,8 @@ body > table td {
 }
 td.time {position:relative;width:4em;background-color:#eee;text-align:center;}
 td.time span {position:relative;top:-1.1em;left:0.3em;}
+/* lunchtime */
+tr.time_12_00 td, tr.time_12_30 td {background-color:#eee;}
 
 /* job on calendar */
 div.job, div.timer {
@@ -68,7 +70,7 @@ div.job h2 span, div.timer h2 span {
   top:0px;
   right:20px;
 }
-div.job h2 span.ui-icon {
+div.job h2 span.ui-icon, div.timer h2 span.ui-icon {
   position:absolute;
   top:1px;
   right:2px;
