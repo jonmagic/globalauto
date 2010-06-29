@@ -266,6 +266,18 @@ $(function(){
     }
   });
   
+  // load notes for this day
+  $('#note').load('/notes/'+$('#cal_header').attr('data-date'), function(){
+    $('#note textarea').typeWatch({
+      callback: function(){
+        $('#note form').ajaxSubmit();
+      },
+      wait: 1000,
+      highlight: true,
+      captureLength: 3
+    });
+  });
+  
   // set whether this is a technician or admin
   if ($('table#schedule').attr('data-view-type') == 'manager') {
     MANAGER = true;

@@ -1,4 +1,4 @@
-<div>
+<div id="cal_header" data-date="<%= @day.strftime('%m%d%Y') %>">
   <ul>
     <li><a href="<%= @day.yesterday.strftime('%m%d%Y') %>" class="ui-state-default ui-button ui-corner-all"><span class="ui-icon ui-icon-carat-1-w"></span></a></li>
     <li><a href="<%= @day.tomorrow.strftime('%m%d%Y') %>" class="ui-state-default ui-button ui-corner-all"><span class="ui-icon ui-icon-carat-1-e"></span></a></li>
@@ -26,3 +26,4 @@
     <% end %>
   </tbody>
 </table>
+<div id="note"></div>

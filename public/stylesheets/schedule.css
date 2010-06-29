@@ -89,3 +89,7 @@ a.change_tech {font-size:14px;}
 #dialog input.hours, #dialog input.hundredths, #dialog input#time_year {width:4em;}
 
 /* calendar */
+
+/* notes */
+div#note {margin:0 30px 0 18px;}
+div#note textarea {height:6em;width:100%;background-color:#FFFF99;}

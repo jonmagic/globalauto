@@ -23,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :jobs do |job|
     job.resources :timers
   end
+  map.resources :notes
 
   map.namespace(:admin) do |admin|
     admin.resources :technicians
