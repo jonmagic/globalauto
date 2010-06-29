@@ -34,7 +34,7 @@ var Job = {
       // setup box dimensions
       if(job.flatrate_time){
         var difference = job.flatrate_time*60;
-        if (job.lunch == true && MANAGER) {
+        if (job.lunch == true) {
           difference = difference+60
         }
       }else{
@@ -262,7 +262,7 @@ $(function(){
       setTimeout(function(){$('#ui-datepicker-div').css('z-index', 9999)}, 100);
     },
     onSelect: function(date, inst){
-      document.location.href = '/schedule/'+date;
+      document.location.href = date;
     }
   });
   

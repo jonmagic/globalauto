@@ -34,7 +34,7 @@ body > table > thead td a {
 }
 body > table td {
   text-align:center;
-  font-size:10px;
+  font-size:12px;
   border:1px solid #eee;
   padding:2px 6px;
   height:1.5em;
@@ -81,6 +81,7 @@ div.job p, div.timer p {
   padding-left:10px;
   padding-right:20px;
 }
+a.change_tech {font-size:14px;}
 
 /* dialog */
 #dialog textarea {height:4em;}
