@@ -8,8 +8,8 @@ class JobsController < ApplicationController
       conditions[:scheduled_at] = { '$gt' => beginning_of_day - 24.hours, '$lt' => beginning_of_day+23.99.hours + 24.hours }
     end
     conditions[:technician_id] = params[:technician_id] if params[:technician_id]
-    @jobs = Job.all(conditions)
-    render :json => @jobs.to_json(:methods => [:lunch])
+    @jobs = Job.where(conditions).sort(:scheduled_at.asc).all
+    render :json => @jobs.to_json(:methods => [:intersection])
   end
 
   def show

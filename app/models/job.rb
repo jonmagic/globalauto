@@ -65,13 +65,20 @@ class Job
     self.recorded_time_helper.to_f - (self.flatrate_time.to_f + self.extra_time.to_f)
   end
   
-  def lunch
+  def intersection
+    time = 0
     job = self
     lunchtime = job.scheduled_at.midnight + 12.hours
     if job.scheduled_at < lunchtime && job.scheduled_at + (job.flatrate_time * 1.hours) > lunchtime
-      return true
+      time += 60
     end
-    false
+    Job.where(:flatrate_time.ne => nil, :technician_id => job.technician_id).all.each do |j|
+      if job.scheduled_at < j.scheduled_at && job.scheduled_at + (job.flatrate_time * 1.hours) > j.scheduled_at + (j.flatrate_time * 1.hours)
+        time += j.flatrate_time * 60
+      end
+      job.flatrate_time += j.flatrate_time
+    end
+    time
   end
   
   def self.limit(status)

@@ -34,9 +34,7 @@ var Job = {
       // setup box dimensions
       if(job.flatrate_time){
         var difference = job.flatrate_time*60;
-        if (job.lunch == true) {
-          difference = difference+60
-        }
+          difference = difference+job.intersection
       }else{
         var difference = 60;
       }
@@ -83,18 +81,123 @@ var Job = {
   edit: function(job_id){
     DIALOG.dialog('close');
     DIALOG.empty();
-    DIALOG.dialog('option', 'buttons', {
-              "Save": function(){
-                $('#dialog form').ajaxSubmit({
-                  success: function(){
-                    Jobs.getAndDraw();
-                    DIALOG.dialog("close");
-                  }
-                });
-              }
-              , "Cancel": function(){DIALOG.dialog("close")}
-            });
     DIALOG.load('/jobs/'+job_id+'/edit', function(){
+      if (DIALOG.find('table.job').attr('data-state')==='scheduled'){
+        DIALOG.dialog('option', 'buttons', {
+          "Save": function(){
+            $('#dialog form').ajaxSubmit({
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog("close");
+              }
+            });
+          }
+          , "Cancel": function(){DIALOG.dialog("close")},
+          "No Show": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/no_show',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          },
+          "Arrived": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/arrived',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          }
+        });
+      }else if(DIALOG.find('table.job').attr('data-state')==='here'){
+        DIALOG.dialog('option', 'buttons', {
+          "Save": function(){
+            $('#dialog form').ajaxSubmit({
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog("close");
+              }
+            });
+          }
+          , "Cancel": function(){DIALOG.dialog("close")},
+          "Start": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/toggle',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          }
+        });
+      }else if(DIALOG.find('table.job').attr('data-state')==='no_show'){
+        console.log('no show')
+      }else if(DIALOG.find('table.job').attr('data-state')==='in_progress'){
+        DIALOG.dialog('option', 'buttons', {
+          "Save": function(){
+            $('#dialog form').ajaxSubmit({
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog("close");
+              }
+            });
+          }
+          , "Cancel": function(){DIALOG.dialog("close")},
+          "Stop": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/toggle',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          },
+          "Complete": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/complete',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          }
+        });
+      }else if(DIALOG.find('table.job').attr('data-state')==='pause'){
+        DIALOG.dialog('option', 'buttons', {
+          "Save": function(){
+            $('#dialog form').ajaxSubmit({
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog("close");
+              }
+            });
+          }
+          , "Cancel": function(){DIALOG.dialog("close")},
+          "Start": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/toggle',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          },
+          "Complete": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/complete',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          }
+        });
+      }else if(DIALOG.find('table.job').attr('data-state')==='complete'){
+        console.log('complete')
+      }
       DIALOG.dialog("open");
     });
   },
@@ -293,7 +396,7 @@ $(function(){
   // get & draw the jobs
   $(window).resize(function(){
     UNITS = Dimensions.pixelsPerMinute();
-    Jobs.getAndDraw()
+    Jobs.getAndDraw();
   });
   
   // setup the pull loop

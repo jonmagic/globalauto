@@ -1,6 +1,6 @@
 <% form_for @job do |form| %>
   <%= render :partial => 'form', :locals => {:form => form} %>
-  <table>
+  <table class="job" data-state="<%= @job.state %>">
     <tr>
       <td><b>Technician</b></td>
       <td><%= form.collection_select :technician_id, @technicians, "id", "name" %></td>
