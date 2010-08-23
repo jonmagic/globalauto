@@ -13,7 +13,7 @@ class Admin::JobsController < ApplicationController
   
   def find_next_completed_job
     if Job.limit("completed").length > 0
-      @job = Job.first_completed_job
+      @job = Job.first(:state => "complete", :flatrate_time => 0.0)
       redirect_to edit_admin_job_path(@job)
     else
       redirect_to "/admin/jobs/?status=completed"
@@ -22,24 +22,9 @@ class Admin::JobsController < ApplicationController
 
   def show
     @job = Job.find(params[:id])
-    if Timer.find(:first, :conditions => {:job_id => @job.id, :end_time => nil})
-      @timer = Timer.find(:first, :conditions => {:job_id => @job.id, :end_time => nil})
-    else
-      @timer = Timer.new
-    end
 
     respond_to do |format|
-      format.html { render }
-      format.xml  { render :xml => @job }
-    end
-  end
-
-  def new
-    @technician = Technician.find(params[:technician_id])
-    @job = Job.new
-
-    respond_to do |format|
-      format.html { render :layout => false }
+      format.html 
       format.xml  { render :xml => @job }
     end
   end
@@ -54,7 +39,7 @@ class Admin::JobsController < ApplicationController
     respond_to do |format|
       if @job.save
         flash[:notice] = 'Job was successfully created.'
-        format.html { redirect_to "/" }
+        format.html { find }
         format.xml  { render :xml => @job, :status => :created, :location => @job }
       else
         format.html { redirect_to "/" }
@@ -68,6 +53,7 @@ class Admin::JobsController < ApplicationController
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
+        format.html { redirect_to find_next_completed_record_path }
         format.json { render :nothing => true, :response => 200 }
         format.xml  { head :ok }
       else

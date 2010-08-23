@@ -7,7 +7,7 @@ div#job h2 {font-size:2em;margin:0;color:#222;}
 
 #job_description {height:40px;}
 input.hours {width:20px;}
-input.minutes {width:20px;}
+input.hundredths {width:20px;}
 
 .ui-datepicker {z-index:9999}
 a.ui-dialog-titlebar-close {display:none;}

@@ -89,7 +89,7 @@ class Job
       Job.all(:state => "in_progress").each {|j| array << j}
       Job.all(:state => "pause").each {|j| array << j}
     elsif status == "completed"
-      Job.all(:state => "complete", :flatrate_time => nil).each {|j| array << j}
+      Job.all(:state => "complete", :flatrate_time => 0.0).each {|j| array << j}
     elsif status == "recorded"
       Job.all(:state => "complete", :flatrate_time => {'$gt' => 0.0}).each {|j| array << j}
     end

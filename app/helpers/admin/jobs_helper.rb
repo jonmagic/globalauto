@@ -18,22 +18,6 @@ module Admin::JobsHelper
     end
   end
   
-  def time_hours_helper(time=nil)
-    if time
-      return Timer.convert_time(time.to_f)["hours"]
-    else
-      return "0"
-    end
-  end
-  
-  def time_minutes_helper(time=nil)
-    if time
-      return Timer.convert_time(time.to_f)["minutes"]
-    else
-      return "0"
-    end
-  end
-  
   def running_difference(time)
     @runningdiff << time
     total = 0
