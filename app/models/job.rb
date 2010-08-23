@@ -12,6 +12,7 @@ class Job
   key :scheduled_at, Time
   key :completed_at, Time
   many :timers
+  timestamps!
 
   belongs_to :technician
 

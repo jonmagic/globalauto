@@ -88,10 +88,7 @@ class Admin::JobsController < ApplicationController
   
   def delete_jobs
     # find all the jobs between my start and end date
-    @jobs = Job.all(:created_at => {
-      '$gt' => params[:start_date].to_date,
-      '$lt' => params[:end_date].to_date
-    })    
+    @jobs = Job.all(:created_at => {'$gt' => params[:start_date].to_time, '$lt' => params[:end_date].to_time+24.hours})   
     if @jobs.length > 0
       # delete each job
       @jobs.each { |job| job.destroy }
