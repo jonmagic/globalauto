@@ -1,4 +1,3 @@
-<%= form.error_messages %>
 <table>
   <% unless @job.timers.length > 0 %>
     <tr>
@@ -33,11 +32,15 @@
 </table>
 
 <script>
-  // read the flatrate boxes and calculate the appropriate time in hundredths
-  $('.flatrate_time input.hours').bind('keyup', function(){
-    $(".flatrate_time").timecalc('input#job_flatrate_time');
-  });
-  $('.flatrate_time input.hundredths').bind('keyup', function(){
-    $(".flatrate_time").timecalc('input#job_flatrate_time');
+  $(function(){
+    setTimeout(function(){$('input#job_lastname').focus();}, 100);
+    $('form.new_job input#job_lastname').focus(); 
+    // read the flatrate boxes and calculate the appropriate time in hundredths
+    $('.flatrate_time input.hours').bind('keyup', function(){
+      $(".flatrate_time").timecalc('input#job_flatrate_time');
+    });
+    $('.flatrate_time input.hundredths').bind('keyup', function(){
+      $(".flatrate_time").timecalc('input#job_flatrate_time');
+    });
   });
 </script>
