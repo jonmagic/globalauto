@@ -39,13 +39,16 @@ var Job = {
         var difference = 60;
       }
       if($('div#'+job.id).length == 0){
-        var ref = 'RO# '+job.ro;
-        if (job.ro === null && job.vehicle !== null){
-          ref = job.vehicle;
-        }
-        $('body').append('<div class="job" id="'+job.id+'" data-ro="'+job.ro+'"><h2>'+job.lastname+'<span>'+ref+'</span><span class="ui-icon ui-icon-pencil"></span></h2><p>'+job.description+'</p></div>');
+        $('body').append('<div class="job" id="'+job.id+'" data-ro="'+job.ro+'"><h2></h2><p>'+job.description+'</p></div>');
       }
       var box = $('#'+job.id);
+      if (job.ro === null && job.vehicle !== null){
+        var ref = job.vehicle;
+        box.find('h2').replaceWith('<h2>'+job.lastname+'<span>'+ref+'</span><span class="ui-icon ui-icon-pencil"></span></h2>')
+      }else{
+        var ref = 'RO# '+job.ro;
+        box.find('h2').replaceWith('<h2>'+job.lastname+'<span>'+ref+'</span><span class="ui-icon ui-icon-pencil"></span></h2>')
+      }
       var dimensions = Dimensions.calculate(job.scheduled_at, difference, job.technician_id);
       if((dimensions.top + dimensions.height) > (BOTTOM + $('tr.time_05_30 td').height() + 4) && dimensions.top > 0){
         dimensions.height = (BOTTOM + $('tr.time_05_30 td').height() + 4) - dimensions.top;
@@ -196,7 +199,18 @@ var Job = {
           }
         });
       }else if(DIALOG.find('table.job').attr('data-state')==='complete'){
-        console.log('complete')
+        DIALOG.dialog('option', 'buttons', {
+          "Save": function(){
+            $('#dialog form').ajaxSubmit({
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog("close");
+              }
+            });
+          }
+          , "Cancel": function(){DIALOG.dialog("close")}
+        });
+        
       }
       DIALOG.dialog("open");
     });
