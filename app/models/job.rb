@@ -31,11 +31,10 @@ class Job
     end
     
     before_transition :scheduled => :no_show do |job|
-      job.flatrate_time = 0.45
     end
     
     event :arrived do
-      transition :scheduled => :here
+      transition :scheduled => :here, :no_show => :here
     end
     
     event :no_show do

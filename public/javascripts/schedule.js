@@ -148,7 +148,26 @@ var Job = {
           }
         });
       }else if(DIALOG.find('table.job').attr('data-state')==='no_show'){
-        console.log('no show')
+        DIALOG.dialog('option', 'buttons', {
+          "Save": function(){
+            $('#dialog form').ajaxSubmit({
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog("close");
+              }
+            });
+          }, 
+          "Cancel": function(){DIALOG.dialog("close")},
+          "Arrived": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/arrived',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          }
+        });
       }else if(DIALOG.find('table.job').attr('data-state')==='in_progress'){
         DIALOG.dialog('option', 'buttons', {
           "Save": function(){
@@ -265,7 +284,17 @@ var Job = {
           }
         });
       }else if(DIALOG.find('table.job').attr('data-state')==='no_show'){
-        console.log('no show')
+        DIALOG.dialog('option', 'buttons', {
+          "Arrived": function(){
+            $.ajax({
+              url: '/jobs/'+job_id+'/arrived',
+              success: function(){
+                Jobs.getAndDraw();
+                DIALOG.dialog('close');
+              }
+            });
+          }
+        });
       }else if(DIALOG.find('table.job').attr('data-state')==='in_progress'){
         DIALOG.dialog('option', 'buttons', {
           "Stop": function(){
