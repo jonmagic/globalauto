@@ -68,4 +68,10 @@ class JobsController < ApplicationController
     @job.complete
     render :nothing => true, :layout => false, :response => 200
   end
+  
+  def destroy
+    @job = Job.find(params[:id])
+    @job.destroy
+    redirect_to :back
+  end
 end
