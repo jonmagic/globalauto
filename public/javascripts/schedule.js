@@ -36,18 +36,29 @@ var Job = {
         var difference = job.flatrate_time*60;
           difference = difference+job.intersection
       }else{
-        var difference = 60;
+        var difference = 15;
       }
       if($('div#'+job.id).length == 0){
-        $('body').append('<div class="job" id="'+job.id+'" data-ro="'+job.ro+'"><h2></h2><p>'+job.description+'</p></div>');
+        $('body').append('<div class="job" id="'+job.id+'" data-ro="'+job.ro+'"></div>');
       }
       var box = $('#'+job.id);
+      box.empty();
+      var ref = '';
       if (job.ro === null && job.vehicle !== null){
-        var ref = job.vehicle;
-        box.find('h2').replaceWith('<h2>'+job.lastname+'<span>'+ref+'</span><span class="ui-icon ui-icon-pencil"></span></h2>')
+        ref = job.vehicle;
       }else{
         var ref = 'RO# '+job.ro;
-        box.find('h2').replaceWith('<h2>'+job.lastname+'<span>'+ref+'</span><span class="ui-icon ui-icon-pencil"></span></h2>')
+      }
+      if (difference > 15) {
+        box.append('<h2>'+job.lastname+'<span>'+ref+'</span><span class="ui-icon ui-icon-pencil"></span></h2>')
+      }else{
+        box.hover(function(){
+          box.css('z-index', 100).css('min-height', 18);
+          box.append('<h2>'+job.lastname+'<span>'+ref+'</span><span class="ui-icon ui-icon-pencil"></span></h2>')
+        }, function(){
+          box.empty();
+          box.css('z-index', 10).css('min-height', 9);
+        });
       }
       var dimensions = Dimensions.calculate(job.scheduled_at, difference, job.technician_id);
       if((dimensions.top + dimensions.height) > (BOTTOM + $('tr.time_05_30 td').height() + 4) && dimensions.top > 0){
@@ -321,19 +332,31 @@ var Job = {
 };
 var Timer = {
   draw: function(timer, job){
+    var difference = 0;
     if(timer.end_time){
-      var difference = (Parse.dateTimeString(timer.end_time).getTime() - Parse.dateTimeString(timer.start_time).getTime())/1000/60;
+      difference = (Parse.dateTimeString(timer.end_time).getTime() - Parse.dateTimeString(timer.start_time).getTime())/1000/60;
     }else{
-      var difference = (new Date().getTime() - Parse.dateTimeString(timer.start_time).getTime())/1000/60;
+      difference = (new Date().getTime() - Parse.dateTimeString(timer.start_time).getTime())/1000/60;
     }
     var dimensions = Dimensions.calculate(timer.start_time, difference, job.technician_id);
     if((dimensions.top + dimensions.height) > (BOTTOM + $('tr.time_05_30 td').height() + 4) && dimensions.top > 0){
       dimensions.height = (BOTTOM + $('tr.time_05_30 td').height() + 4) - dimensions.top;
     }
     if($('div#'+timer.id).length == 0){
-      $('body').append('<div class="timer" id="'+timer.id+'" data-job-id="'+job.id+'" data-ro="'+job.ro+'"><h2>'+job.lastname+'<span>RO# '+job.ro+'</span><span class="ui-icon ui-icon-pencil"></span></h2><p>'+job.description+'</p></div>');
+      $('body').append('<div class="timer" id="'+timer.id+'" data-job-id="'+job.id+'" data-ro="'+job.ro+'"></div>');
     }
     var box = $('#'+timer.id);
+    if (difference > 15) {
+      box.append('<h2>'+job.lastname+'<span>RO# '+job.ro+'</span><span class="ui-icon ui-icon-pencil"></span></h2><p>'+job.description+'</p>')
+    }else{
+      box.hover(function(){
+        box.css('z-index', 100).css('min-height', 18);
+        box.append('<h2>'+job.lastname+'<span>RO# '+job.ro+'</span><span class="ui-icon ui-icon-pencil"></span></h2><p>'+job.description+'</p>')
+      }, function(){
+        box.empty();
+        box.css('z-index', 10).css('min-height', 9);
+      });
+    }
     box.css({left: dimensions.left + 6, top: dimensions.top, height: dimensions.height, width: $('td#'+job.technician_id).outerWidth() - 16, backgroundColor: Job.state_color(job.state)});
   }
 };

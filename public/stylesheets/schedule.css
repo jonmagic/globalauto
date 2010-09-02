@@ -56,14 +56,13 @@ div.job, div.timer {
   -webkit-border-radius:6px;
   border:1px solid #bbb;
   overflow:hidden;
-  min-height:18px;
+  min-height:9px;
 }
 div.job h2, div.timer h2 {
   margin:0;
   padding:1px 0 0 10px;
   font-size:1em;
   font-weight:bold;
-  border-bottom:1px solid #bbb;
 }
 div.job h2 span, div.timer h2 span {
   position:absolute;
