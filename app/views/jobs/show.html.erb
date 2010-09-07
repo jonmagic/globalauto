@@ -15,3 +15,6 @@
     <td><b>Recorded:</b></td><td><%= @job.recorded_time_helper %></td>
   </tr>
 </table>
+<% if ["scheduled","no_show"].include?(@job.state) %>
+  <%= link_to("Delete this job", url_for(@job), :method => :delete, :confirm => "Are you sure?") %>
+<% end %>
