@@ -10,6 +10,6 @@
   </table>
   <%= form.submit 'Save' %>
 <% end %>
-<% if ["scheduled"].include?(@job.state) %>
+<% if ["scheduled","no_show"].include?(@job.state) %>
   <%= link_to("Delete this job", url_for(@job), :method => :delete, :confirm => "Are you sure?") %>
 <% end %>
