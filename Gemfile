@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails', '2.3.8'
+gem 'rails', '2.3.11'
 
 gem 'sqlite3-ruby'
 gem 'mongo_mapper', '0.8.4'
