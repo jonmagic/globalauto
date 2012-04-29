@@ -1,17 +1,27 @@
 <table class="itu" >
   <thead>
-    <tr><th class="first">Id</th><th>RO #</th><th>Lastname</th><th>Description</th><th>Technician</th><th>Recorded Time</th><th>Flat Rate Time</th><th>Extra Time</th><th>Delete</th></tr>
+    <tr>
+      <th>RO #</th>
+      <th>Lastname</th>
+      <th>Description</th>
+      <th>Technician</th>
+      <th>Recorded</th>
+      <th>Flat Rate</th>
+      <th>Extra</th>
+      <th>Timestamp</th>
+      <th>Delete</th>
+    </tr>
   </thead>
   <tbody>
     <% @jobs.each do |job|  %>
       <tr class="job" alt="<%= job.description %>" status="<%= status_helper(job) %>">
-        <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.id %></a></td>
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.ro_number %></a></td>
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.clients_lastname %></a></td>
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.description[0...80] + "..." %></a></td>
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.technician.name %></a></td>
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.recorded_time_helper %></a></td>
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.flatrate_time %></a></td>
+        <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.updated_at.strftime('%m-%d-%Y %H:%M') %></a></td>
         <td><a href="/admin/jobs/<%= job.id %><%= show_edit_helper(job) %>"><%= job.extra_time %></a></td>
         <td>
           <%= link_to(image_tag('/images/icons/delete.png'), { :action => "destroy", :id => job }, :confirm => "Are you sure you want to delete this job?", :method => :delete)%>
