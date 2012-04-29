@@ -8,6 +8,7 @@
     <h4>Flat-rate Time: <%= @job.flatrate_time %></h4>
     <h4>Extra Time: <%= @job.extra_time %></h4>
     <h4>Difference: <%= @job.difference %></h4>
+    <h4>Timestamp: <%= @job.updated_at.strftime('%m-%d-%Y %H:%M') %></h4>
 </div>
 
 <script>

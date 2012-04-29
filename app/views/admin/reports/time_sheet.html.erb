@@ -25,6 +25,7 @@
       <th>Recorded</th>
       <th>Flat-rate</th>
       <th>Extra</th>
+      <th>Timestamp</th>
     </tr>
   </thead>
   <tbody>
@@ -40,6 +41,7 @@
           <td><%= job.recorded_time %></td>
           <td><%= job.flatrate_time %></td>
           <td><%= job.extra_time %></td>
+          <td><%= job.updated_at.strftime('%m-%d-%Y %H:%M') %></td>
         </tr>
         <% tech["Counter"] += 1 %>
       <% end %>
